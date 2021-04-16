@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../inc/game_initialization.h
+stdio.h
+-
+
+C:/Users/SunoWhere/CLionProjects/naval_battle/src/main.c
+stdio.h
+-
+game_initialization.h
+C:/Users/SunoWhere/CLionProjects/naval_battle/src/game_initialization.h
+
