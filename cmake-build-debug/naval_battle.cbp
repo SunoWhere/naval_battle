@@ -76,7 +76,13 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="C:/Users/SunoWhere/CLionProjects/naval_battle/inc/display.h">
+			<Option target="naval_battle"/>
+		</Unit>
 		<Unit filename="C:/Users/SunoWhere/CLionProjects/naval_battle/inc/struct.h">
+			<Option target="naval_battle"/>
+		</Unit>
+		<Unit filename="C:/Users/SunoWhere/CLionProjects/naval_battle/src/display.c">
 			<Option target="naval_battle"/>
 		</Unit>
 		<Unit filename="C:/Users/SunoWhere/CLionProjects/naval_battle/src/game_initialization.c">
