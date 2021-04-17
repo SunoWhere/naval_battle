@@ -1,4 +1,4 @@
-C:\Users\SunoWhere\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\203.7148.70\bin\cmake\win\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" C:\Users\SunoWhere\CLionProjects\naval_battle
+C:\Users\SunoWhere\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\211.6693.114\bin\cmake\win\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" C:\Users\SunoWhere\CLionProjects\naval_battle
 -- Configuring done
 -- Generating done
 -- Build files have been written to: C:/Users/SunoWhere/CLionProjects/naval_battle/cmake-build-debug
