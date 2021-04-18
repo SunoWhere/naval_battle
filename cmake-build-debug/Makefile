@@ -222,6 +222,33 @@ src/main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\naval_battle.dir\build.make CMakeFiles/naval_battle.dir/src/main.c.s
 .PHONY : src/main.c.s
 
+src/stdjm.obj: src/stdjm.c.obj
+
+.PHONY : src/stdjm.obj
+
+# target to build an object file
+src/stdjm.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\naval_battle.dir\build.make CMakeFiles/naval_battle.dir/src/stdjm.c.obj
+.PHONY : src/stdjm.c.obj
+
+src/stdjm.i: src/stdjm.c.i
+
+.PHONY : src/stdjm.i
+
+# target to preprocess a source file
+src/stdjm.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\naval_battle.dir\build.make CMakeFiles/naval_battle.dir/src/stdjm.c.i
+.PHONY : src/stdjm.c.i
+
+src/stdjm.s: src/stdjm.c.s
+
+.PHONY : src/stdjm.s
+
+# target to generate assembly for a file
+src/stdjm.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\naval_battle.dir\build.make CMakeFiles/naval_battle.dir/src/stdjm.c.s
+.PHONY : src/stdjm.c.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -240,6 +267,9 @@ help:
 	@echo ... src/main.obj
 	@echo ... src/main.i
 	@echo ... src/main.s
+	@echo ... src/stdjm.obj
+	@echo ... src/stdjm.i
+	@echo ... src/stdjm.s
 .PHONY : help
 
 

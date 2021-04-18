@@ -33,29 +33,31 @@ static void initialize_inventory(Inventory *inventory, Difficulty difficulty){
     }
 }
 
+static void initialiaze_fleet(Boat *fleet){
+    for(int i = 0; i < 2; i+=2) {
+        fleet[i].size = i;
+        fleet[i].orientation
+    }
+    for (int i = 0; i < ; ++i) {
+
+    }
+}
+
 static void set_difficulty(Difficulty *difficulty){
     int choice = 0;
     printf("Chose difficulty :\n  1 : Easy\n  2 : Medium\n  3 : Hard\n");
-    scanf("%d", &choice);
-    while(choice < 1 || choice > 3){
-        printf("Please enter a valid choice : \n");
-        scanf("%d", &choice);
-    }
+    input_choice(&choice, 1, 3);
     *difficulty = choice - 1;
 }
 
 static void set_gamemode(Mode *gamemode){
     int choice = 0;
     printf("Chose gamemode:\n  1 : Classic\n  2 : Blind\n  3 : Active\n");
-    scanf("%d", &choice);
-    while(choice < 1 || choice > 3){
-        printf("Please enter a valid choice : \n");
-        scanf("%d", &choice);
-    }
+    input_choice(&choice, 1, 3);
     *gamemode = choice - 1;
 }
 
-static void load_from_file(Grid *grid, Inventory *inventory, Difficulty *difficulty, Mode *gamemode){
+static void load(Grid *grid, Inventory *inventory, Difficulty *difficulty, Mode *gamemode){
     char *line = malloc(12 * sizeof(char));
     FILE *save = fopen("save.txt", "r");
     if(save){
@@ -74,15 +76,11 @@ static void load_from_file(Grid *grid, Inventory *inventory, Difficulty *difficu
 }
 
 void initialization(Grid *grid, short int height, short int width, Inventory *inventory, Difficulty *difficulty, Mode *gamemode){
-    initialize_grid(grid, height, width);
     int choice = 0;
+    initialize_grid(grid, height, width);
     printf("Welcome to Naval Battle : enHanced edition\n");
     printf("Do you want to :\n  1 : Start a new game\n  2 : Resume the previous game\n  3 : Exit game\n");
-    scanf("%d", &choice);
-    while(choice < 1 || choice > 3){
-        printf("Please enter a valid choice : \n");
-        scanf("%d", &choice);
-    }
+    input_choice(&choice, 1, 3);
     switch(choice){
         case 1:
             set_difficulty(difficulty);
@@ -90,7 +88,7 @@ void initialization(Grid *grid, short int height, short int width, Inventory *in
             initialize_inventory(inventory, *difficulty);
             break;
         case 2:
-            load_from_file(grid, inventory, difficulty, gamemode);
+            load(grid, inventory, difficulty, gamemode);
             break;
         default:
             exit(0);

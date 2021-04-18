@@ -6,12 +6,6 @@
 
 #IncludeRegexTransform: 
 
-../inc/display.h
-stdio.h
--
-struct.h
-../inc/struct.h
-
 ../inc/game_initialization.h
 stdio.h
 -
@@ -19,16 +13,28 @@ stdlib.h
 -
 string.h
 -
+ctype.h
+-
+math.h
+-
 struct.h
 ../inc/struct.h
+stdjm.h
+../inc/stdjm.h
+
+../inc/stdjm.h
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+ctype.h
+-
 
 ../inc/struct.h
 
-C:/Users/SunoWhere/CLionProjects/naval_battle/src/main.c
-struct.h
-C:/Users/SunoWhere/CLionProjects/naval_battle/src/struct.h
+C:/Users/SunoWhere/CLionProjects/naval_battle/src/game_initialization.c
 game_initialization.h
 C:/Users/SunoWhere/CLionProjects/naval_battle/src/game_initialization.h
-display.h
-C:/Users/SunoWhere/CLionProjects/naval_battle/src/display.h
 
