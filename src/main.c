@@ -14,8 +14,6 @@ int main(void){
 
     initialization(&grid, 10, 10, &inventory, &difficulty, &gamemode, fleet);
     show_grid(&grid);
-    printf("\n");
-    show_grid_debug(&grid);
     show_inventory(&inventory);
     printf("D = %d, G = %d", difficulty, gamemode);
 

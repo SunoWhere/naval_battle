@@ -30,3 +30,25 @@ void show_inventory(Inventory *inventory){
            "  Simple missile    = %d\n"
            , inventory->artillery, inventory->bomb, inventory->tactical, inventory->simple_missile);
 }
+
+char *difficulty_str(Difficulty difficulty){
+    switch (difficulty) {
+        case EASY:
+            return "Easy";
+        case MEDIUM:
+            return "Medium";
+        default:
+            return "Hard";
+    }
+}
+
+char *gamemode_str(Mode gamemode){
+    switch (gamemode) {
+        case CLASSIC:
+            return "Classic";
+        case BLIND:
+            return "Blind";
+        default:
+            return "Active";
+    }
+}

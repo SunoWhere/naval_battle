@@ -33,7 +33,7 @@ static void initialize_inventory(Inventory *inventory, Difficulty difficulty){
     }
 }
 
-static void initialiaze_fleet(Boat *fleet){
+static void initialize_fleet(Boat *fleet){
     for(int i = 0; i < 5; i++){
         fleet[i].size = i < 2 ? i + 2 : i + 1;
         fleet[i].orientation = rand()%2;
@@ -61,8 +61,8 @@ static void set_boat(Grid *grid, Boat boat){
 }
 
 static void set_fleet(Grid *grid, Boat *fleet){
-    initialiaze_fleet(fleet);
-    short int line = 0, column = 0;
+    initialize_fleet(fleet);
+    short int line, column;
     for(int i = 4; i >=0 ; i--){
         do{
             line = rand()%(grid->height - (fleet[i].size * (fleet[i].orientation == VERTICAL)));
@@ -114,7 +114,7 @@ static void load(Grid *grid, Inventory *inventory, Difficulty *difficulty, Mode 
 void initialization(Grid *grid, short int height, short int width, Inventory *inventory, Difficulty *difficulty, Mode *gamemode, Boat *fleet){
     int choice = 0;
     initialize_grid(grid, height, width);
-    printf("Welcome to Naval Battle : enHanced edition\n");
+    printf("Welcome to Naval Battle : enhanced edition\n");
     printf("Do you want to :\n  1 : Start a new game\n  2 : Resume the previous game\n  3 : Exit game\n");
     input_choice(&choice, 1, 3);
     switch(choice){
