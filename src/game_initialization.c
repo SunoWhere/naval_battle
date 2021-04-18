@@ -99,7 +99,11 @@ static void load(Grid *grid, Inventory *inventory, Difficulty *difficulty, Mode 
     char *line = malloc(12 * sizeof(char));
     FILE *save = fopen("save.txt", "r");
     if(save){
-        fscanf(save ,"%d\n%d\n%hu %hu %hu %hu\n", difficulty, gamemode, &(inventory->artillery), &(inventory->bomb), &(inventory->tactical), &(inventory->simple_missile));
+        fscanf(save ,"Difficulty=%d\nGamemode=%d\nArtillery=%hu Bomb=%hu Tactical=%hu Simple=%hu\n", difficulty, gamemode, &(inventory->artillery), &(inventory->bomb), &(inventory->tactical), &(inventory->simple_missile));
+        initialize_fleet(fleet);
+        for(int i = 0; i < 5; i++){
+            fscanf(save, "B=%hu,%hu,%d\n", &(fleet[i].position[0]), &(fleet[i].position[1]), &(fleet[i].orientation));
+        }
         for(int i = 0;(fgets(line, 12 * sizeof(char), save)) != NULL; i++){
             strcpy(grid->grid[i], line);
         }

@@ -2,6 +2,7 @@
 #include "game_initialization.h"
 #include "display.h"
 #include "stdjm.h"
+#include "file.h"
 
 
 int main(void){
@@ -14,8 +15,10 @@ int main(void){
 
     initialization(&grid, 10, 10, &inventory, &difficulty, &gamemode, fleet);
     show_grid(&grid);
+    printf("Difficulty = %s, Gamemode = %s\n", difficulty_str(difficulty), gamemode_str(gamemode));
     show_inventory(&inventory);
-    printf("D = %d, G = %d", difficulty, gamemode);
+    show_remaining_boat(&grid, fleet);
+    save(&grid, &inventory, difficulty, gamemode, fleet);
 
     return 0;
 
