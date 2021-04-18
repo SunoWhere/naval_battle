@@ -73,7 +73,7 @@ static void load_from_file(Grid *grid, Inventory *inventory, Difficulty *difficu
     fclose(save);
 }
 
-void game_main_menu(Grid *grid, short int height, short int width, Inventory *inventory, Difficulty *difficulty, Mode *gamemode){
+void initialization(Grid *grid, short int height, short int width, Inventory *inventory, Difficulty *difficulty, Mode *gamemode){
     initialize_grid(grid, height, width);
     int choice = 0;
     printf("Welcome to Naval Battle : enHanced edition\n");

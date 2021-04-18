@@ -11,10 +11,10 @@ int main() {
     Mode gamemode;
     Boat fleet[5];
 
-    game_main_menu(&grid, 10, 10, &inventory, &difficulty, &gamemode);
+    initialization(&grid, 10, 10, &inventory, &difficulty, &gamemode);
     show_grid(&grid);
     show_inventory(&inventory);
-
+    printf("D = %d, G = %d", difficulty, gamemode);
     return 0;
 
 }
