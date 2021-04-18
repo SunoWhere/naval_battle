@@ -9,10 +9,16 @@
 ../inc/game_initialization.h
 stdio.h
 -
-
-C:/Users/SunoWhere/CLionProjects/naval_battle/src/main.c
-stdio.h
+stdlib.h
 -
+string.h
+-
+struct.h
+../inc/struct.h
+
+../inc/struct.h
+
+C:/Users/SunoWhere/CLionProjects/naval_battle/src/game_initialization.c
 game_initialization.h
 C:/Users/SunoWhere/CLionProjects/naval_battle/src/game_initialization.h
 

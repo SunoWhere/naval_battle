@@ -4,6 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
+  "C:/Users/SunoWhere/CLionProjects/naval_battle/src/display.c" "C:/Users/SunoWhere/CLionProjects/naval_battle/cmake-build-debug/CMakeFiles/naval_battle.dir/src/display.c.obj"
   "C:/Users/SunoWhere/CLionProjects/naval_battle/src/game_initialization.c" "C:/Users/SunoWhere/CLionProjects/naval_battle/cmake-build-debug/CMakeFiles/naval_battle.dir/src/game_initialization.c.obj"
   "C:/Users/SunoWhere/CLionProjects/naval_battle/src/main.c" "C:/Users/SunoWhere/CLionProjects/naval_battle/cmake-build-debug/CMakeFiles/naval_battle.dir/src/main.c.obj"
   )

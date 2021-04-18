@@ -17,7 +17,7 @@ static void set_inventory(Inventory *inventory, short int artillery, short int b
     inventory->simple_missile = simple_missile;
 }
 
-void initialize_inventory(Inventory *inventory, short int difficulty){
+void initialize_inventory(Inventory *inventory, Difficulty difficulty){
     switch(difficulty){
         case EASY:
             set_inventory(inventory, 10, 10, 10, 10);
@@ -31,4 +31,18 @@ void initialize_inventory(Inventory *inventory, short int difficulty){
         default:
             break;
     }
+}
+
+void load_from_file(Grid *grid, Inventory *inventory, Difficulty *difficulty){
+    char *line = malloc(12 * sizeof(char));
+    FILE *save = fopen("save.txt", "r");
+    if(save){
+        fscanf(save ,"%d\n%hu %hu %hu %hu\n", difficulty, &(inventory->artillery), &(inventory->bomb), &(inventory->tactical), &(inventory->simple_missile));
+        for(int i = 0;(fgets(line, 12 * sizeof(char), save)) != NULL; i++){
+            strcpy(grid->boat_array[i], line);
+        }
+    }else{
+
+    }
+    fclose(save);
 }

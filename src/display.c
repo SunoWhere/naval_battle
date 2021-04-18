@@ -11,8 +11,9 @@ void show_grid(Grid *grid){
 
 void show_inventory(Inventory *inventory){
     printf("Inventory :\n"
-           "\tArtillery missile = %d\n"
-           "\tBomb              = %d\n"
-           "\tTactical missile  = %d\n"
-           "\tSimple missile    = %d\n", inventory->artillery, inventory->bomb, inventory->tactical, inventory->simple_missile);
+           "  Artillery missile = %d\n"
+           "  Bomb              = %d\n"
+           "  Tactical missile  = %d\n"
+           "  Simple missile    = %d\n"
+           , inventory->artillery, inventory->bomb, inventory->tactical, inventory->simple_missile);
 }

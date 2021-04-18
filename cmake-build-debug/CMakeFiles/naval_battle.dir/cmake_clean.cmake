@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/naval_battle.dir/src/display.c.obj"
   "CMakeFiles/naval_battle.dir/src/game_initialization.c.obj"
   "CMakeFiles/naval_battle.dir/src/main.c.obj"
   "libnaval_battle.dll.a"
