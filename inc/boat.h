@@ -5,5 +5,6 @@
 
 int remaining_life(Grid *, Boat);
 int is_alive(Grid *, Boat);
+int remaining_boat(Grid *, Boat *);
 
 #endif //NAVAL_BATTLE_BOAT_H

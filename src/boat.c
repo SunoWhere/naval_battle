@@ -16,3 +16,11 @@ int remaining_life(Grid *grid, Boat boat){
 int is_alive(Grid *grid, Boat boat){
     return remaining_life(grid, boat) ? 1 : 0;
 }
+
+int remaining_boat(Grid *grid, Boat *fleet){
+    short int boat = 0;
+    for (int i = 0; i < 5; i++) {
+        boat += is_alive(grid, fleet[i]);
+    }
+    return boat;
+}
