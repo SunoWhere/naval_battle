@@ -18,6 +18,14 @@ typedef enum{
     VERTICAL
 }Orientation;
 
+typedef enum{
+    ARTILLERY,
+    BOMB,
+    TACTICAL,
+    SIMPLE,
+    NONE
+}Weapon;
+
 typedef struct{
     unsigned short height;
     unsigned short width;

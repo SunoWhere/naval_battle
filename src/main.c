@@ -1,10 +1,9 @@
 #include "struct.h"
 #include "game_initialization.h"
 #include "display.h"
-#include "stdjm.h"
-#include "file.h"
 #include "boat.h"
 #include "weapon.h"
+#include "player.h"
 
 
 int main(void){
@@ -17,14 +16,13 @@ int main(void){
 
     initialization(&grid, 10, 10, &inventory, &difficulty, &gamemode, fleet);
 
-    while(remaining_boat(&grid, fleet) && remaining_weapon(inventory)){
-
+    while(remaining_boat(&grid, fleet) && available_weapon(inventory)){
+        show_grid_debug(&grid);
+        printf("Difficulty = %s, Gamemode = %s\n", difficulty_str(difficulty), gamemode_str(gamemode));
+        show_inventory(&inventory);
+        show_remaining_boat(&grid, fleet);
+        player_menu(&grid, &inventory, difficulty, gamemode, fleet);
     }
-    show_grid(&grid);
-    printf("Difficulty = %s, Gamemode = %s\n", difficulty_str(difficulty), gamemode_str(gamemode));
-    show_inventory(&inventory);
-    show_remaining_boat(&grid, fleet);
-    save(&grid, &inventory, difficulty, gamemode, fleet);
 
     return 0;
 
