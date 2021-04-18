@@ -3,7 +3,7 @@
 #include "display.h"
 
 
-int main() {
+int main(){
 
     Grid grid;
     Inventory inventory;
