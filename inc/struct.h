@@ -21,7 +21,7 @@ typedef enum{
 typedef struct{
     unsigned short height;
     unsigned short width;
-    char **boat_array;
+    char **grid;
 }Grid;
 
 typedef struct{

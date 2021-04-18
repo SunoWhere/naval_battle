@@ -3,9 +3,9 @@
 void show_grid(Grid *grid){
     for (int i = 0; i < grid->height; i++) {
         for (int j = 0; j < grid->width; ++j) {
-            printf("%c ", grid->boat_array[i][j]);
+            grid->grid[i][j] == 'B' ? printf("| _ ") : printf("| %c ", grid->grid[i][j]);
         }
-        printf("\n");
+        printf("|\n");
     }
 }
 
