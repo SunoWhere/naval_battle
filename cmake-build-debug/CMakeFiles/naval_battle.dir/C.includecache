@@ -42,9 +42,9 @@ ctype.h
 
 ../inc/struct.h
 
-C:/Users/SunoWhere/CLionProjects/naval_battle/src/game_initialization.c
-game_initialization.h
-C:/Users/SunoWhere/CLionProjects/naval_battle/src/game_initialization.h
+C:/Users/SunoWhere/CLionProjects/naval_battle/src/display.c
+display.h
+C:/Users/SunoWhere/CLionProjects/naval_battle/src/display.h
 
 C:/Users/SunoWhere/CLionProjects/naval_battle/src/main.c
 struct.h
@@ -53,10 +53,6 @@ game_initialization.h
 C:/Users/SunoWhere/CLionProjects/naval_battle/src/game_initialization.h
 display.h
 C:/Users/SunoWhere/CLionProjects/naval_battle/src/display.h
-stdjm.h
-C:/Users/SunoWhere/CLionProjects/naval_battle/src/stdjm.h
-
-C:/Users/SunoWhere/CLionProjects/naval_battle/src/stdjm.c
 stdjm.h
 C:/Users/SunoWhere/CLionProjects/naval_battle/src/stdjm.h
 

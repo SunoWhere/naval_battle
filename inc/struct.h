@@ -14,8 +14,8 @@ typedef enum{
 }Difficulty;
 
 typedef enum{
-    H,
-    V
+    HORIZONTAL,
+    VERTICAL
 }Orientation;
 
 typedef struct{

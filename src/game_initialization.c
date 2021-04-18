@@ -40,6 +40,40 @@ static void initialiaze_fleet(Boat *fleet){
     }
 }
 
+static int is_occupied(Grid *grid, Boat boat, short int line, short int column){
+    int start_line = line, start_column = column;
+    while((boat.orientation == VERTICAL && line - start_line < boat.size) || (boat.orientation == HORIZONTAL && (column - start_column < boat.size))){
+        if(grid->grid[line][column] == 'B'){
+            return 1;
+        }
+        line += (boat.orientation == VERTICAL) ? 1 : 0;
+        column += (boat.orientation == HORIZONTAL) ? 1 : 0;
+    }
+    return 0;
+}
+
+static void set_boat(Grid *grid, Boat boat){
+    for(int i = 0; i < boat.size; i++) {
+        grid->grid[boat.position[0]][boat.position[1]] = 'B';
+        boat.position[0] += (boat.orientation == VERTICAL) ? 1 : 0;
+        boat.position[1] += (boat.orientation == HORIZONTAL) ? 1 : 0;
+    }
+}
+
+static void set_fleet(Grid *grid, Boat *fleet){
+    initialiaze_fleet(fleet);
+    short int line = 0, column = 0;
+    for(int i = 4; i >=0 ; i--){
+        do{
+            line = rand()%(grid->height - (fleet[i].size * (fleet[i].orientation == VERTICAL)));
+            column = rand()%(grid->width - (fleet[i].size * (fleet[i].orientation == HORIZONTAL)));
+        }while(is_occupied(grid, fleet[i], line, column));
+        fleet[i].position[0] = line;
+        fleet[i].position[1] = column;
+        set_boat(grid, fleet[i]);
+    }
+}
+
 static void set_difficulty(Difficulty *difficulty){
     int choice = 0;
     printf("Chose difficulty :\n  1 : Easy\n  2 : Medium\n  3 : Hard\n");
@@ -54,13 +88,14 @@ static void set_gamemode(Mode *gamemode){
     *gamemode = choice - 1;
 }
 
-static void new_game(Inventory *inventory, Difficulty *difficulty, Mode *gamemode){
+static void new_game(Grid *grid, Inventory *inventory, Difficulty *difficulty, Mode *gamemode, Boat *fleet){
     set_difficulty(difficulty);
     set_gamemode(gamemode);
     initialize_inventory(inventory, *difficulty);
+    set_fleet(grid, fleet);
 }
 
-static void load(Grid *grid, Inventory *inventory, Difficulty *difficulty, Mode *gamemode){
+static void load(Grid *grid, Inventory *inventory, Difficulty *difficulty, Mode *gamemode, Boat *fleet){
     char *line = malloc(12 * sizeof(char));
     FILE *save = fopen("save.txt", "r");
     if(save){
@@ -70,7 +105,7 @@ static void load(Grid *grid, Inventory *inventory, Difficulty *difficulty, Mode 
         }
     }else{
         printf("No save file found, a new game will start.\n");
-        new_game(inventory, difficulty, gamemode);
+        new_game(grid, inventory, difficulty, gamemode, fleet);
     }
     free(line);
     fclose(save);
@@ -84,10 +119,10 @@ void initialization(Grid *grid, short int height, short int width, Inventory *in
     input_choice(&choice, 1, 3);
     switch(choice){
         case 1:
-            new_game(inventory, difficulty, gamemode);
+            new_game(grid, inventory, difficulty, gamemode, fleet);
             break;
         case 2:
-            load(grid, inventory, difficulty, gamemode);
+            load(grid, inventory, difficulty, gamemode, fleet);
             break;
         default:
             exit(0);
