@@ -6,11 +6,16 @@ CMakeFiles/naval_battle.dir/src/display.c.obj: ../inc/struct.h
 CMakeFiles/naval_battle.dir/src/display.c.obj: ../src/display.c
 
 CMakeFiles/naval_battle.dir/src/game_initialization.c.obj: ../inc/game_initialization.h
+CMakeFiles/naval_battle.dir/src/game_initialization.c.obj: ../inc/stdjm.h
 CMakeFiles/naval_battle.dir/src/game_initialization.c.obj: ../inc/struct.h
 CMakeFiles/naval_battle.dir/src/game_initialization.c.obj: ../src/game_initialization.c
 
 CMakeFiles/naval_battle.dir/src/main.c.obj: ../inc/display.h
 CMakeFiles/naval_battle.dir/src/main.c.obj: ../inc/game_initialization.h
+CMakeFiles/naval_battle.dir/src/main.c.obj: ../inc/stdjm.h
 CMakeFiles/naval_battle.dir/src/main.c.obj: ../inc/struct.h
 CMakeFiles/naval_battle.dir/src/main.c.obj: ../src/main.c
+
+CMakeFiles/naval_battle.dir/src/stdjm.c.obj: ../inc/stdjm.h
+CMakeFiles/naval_battle.dir/src/stdjm.c.obj: ../src/stdjm.c
 

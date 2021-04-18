@@ -10,6 +10,6 @@
 #include "struct.h"
 #include "stdjm.h"
 
-void initialization(Grid *, short int, short int, Inventory *, Difficulty *, Mode *);
+void initialization(Grid *, short int, short int, Inventory *, Difficulty *, Mode *, Boat *);
 
 #endif //NAVAL_BATTLE_GAME_INITIALIZATION_H

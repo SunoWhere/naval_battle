@@ -34,12 +34,9 @@ static void initialize_inventory(Inventory *inventory, Difficulty difficulty){
 }
 
 static void initialiaze_fleet(Boat *fleet){
-    for(int i = 0; i < 2; i+=2) {
-        fleet[i].size = i;
-        fleet[i].orientation
-    }
-    for (int i = 0; i < ; ++i) {
-
+    for(int i = 0; i < 5; i++){
+        fleet[i].size = i < 2 ? i + 2 : i + 1;
+        fleet[i].orientation = rand()%2;
     }
 }
 
@@ -57,6 +54,12 @@ static void set_gamemode(Mode *gamemode){
     *gamemode = choice - 1;
 }
 
+static void new_game(Inventory *inventory, Difficulty *difficulty, Mode *gamemode){
+    set_difficulty(difficulty);
+    set_gamemode(gamemode);
+    initialize_inventory(inventory, *difficulty);
+}
+
 static void load(Grid *grid, Inventory *inventory, Difficulty *difficulty, Mode *gamemode){
     char *line = malloc(12 * sizeof(char));
     FILE *save = fopen("save.txt", "r");
@@ -67,15 +70,13 @@ static void load(Grid *grid, Inventory *inventory, Difficulty *difficulty, Mode 
         }
     }else{
         printf("No save file found, a new game will start.\n");
-        set_difficulty(difficulty);
-        set_gamemode(gamemode);
-        initialize_inventory(inventory, *difficulty);
+        new_game(inventory, difficulty, gamemode);
     }
     free(line);
     fclose(save);
 }
 
-void initialization(Grid *grid, short int height, short int width, Inventory *inventory, Difficulty *difficulty, Mode *gamemode){
+void initialization(Grid *grid, short int height, short int width, Inventory *inventory, Difficulty *difficulty, Mode *gamemode, Boat *fleet){
     int choice = 0;
     initialize_grid(grid, height, width);
     printf("Welcome to Naval Battle : enHanced edition\n");
@@ -83,9 +84,7 @@ void initialization(Grid *grid, short int height, short int width, Inventory *in
     input_choice(&choice, 1, 3);
     switch(choice){
         case 1:
-            set_difficulty(difficulty);
-            set_gamemode(gamemode);
-            initialize_inventory(inventory, *difficulty);
+            new_game(inventory, difficulty, gamemode);
             break;
         case 2:
             load(grid, inventory, difficulty, gamemode);

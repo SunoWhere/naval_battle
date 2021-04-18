@@ -7,10 +7,15 @@ CMakeFiles/naval_battle.dir/src/display.c.obj
  C:/Users/SunoWhere/CLionProjects/naval_battle/src/display.c
 CMakeFiles/naval_battle.dir/src/game_initialization.c.obj
  ../inc/game_initialization.h
+ ../inc/stdjm.h
  ../inc/struct.h
  C:/Users/SunoWhere/CLionProjects/naval_battle/src/game_initialization.c
 CMakeFiles/naval_battle.dir/src/main.c.obj
  ../inc/display.h
  ../inc/game_initialization.h
+ ../inc/stdjm.h
  ../inc/struct.h
  C:/Users/SunoWhere/CLionProjects/naval_battle/src/main.c
+CMakeFiles/naval_battle.dir/src/stdjm.c.obj
+ ../inc/stdjm.h
+ C:/Users/SunoWhere/CLionProjects/naval_battle/src/stdjm.c

@@ -17,12 +17,12 @@ int str_to_int(char *input){
 }
 
 void input_choice(int *choice, int inf, int sup){
-    char input[5];
+    char input[3];
     do {
-        fgets(input, 5, stdin);
+        fgets(input, 3, stdin);
         while(!(*choice = str_to_int(input))){
             printf("Please enter a valid choice : \n");
-            fgets(input, 5, stdin);
+            fgets(input, 3, stdin);
         }
     }while(*choice < inf || *choice > sup);
 }
