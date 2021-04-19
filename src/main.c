@@ -17,7 +17,7 @@ int main(void){
     initialization(&grid, 10, 10, &inventory, &difficulty, &gamemode, fleet);
 
     while(remaining_boat(&grid, fleet) && available_weapon(inventory)){
-        ga
+        show_classic(&grid, &inventory, difficulty, gamemode, fleet);
         player_menu(&grid, &inventory, difficulty, gamemode, fleet);
     }
 

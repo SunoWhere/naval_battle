@@ -3,5 +3,6 @@
 
 #include "struct.h"
 #include "display.h"
+#include "player.h"
 
 #endif //NAVAL_BATTLE_GAMEMODE_H

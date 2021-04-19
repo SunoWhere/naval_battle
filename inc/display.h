@@ -11,5 +11,6 @@ void show_inventory(Inventory *);
 char *difficulty_str(Difficulty);
 char *gamemode_str(Mode);
 void show_remaining_boat(Grid *, Boat *);
+void show_classic(Grid *, Inventory *, Difficulty, Mode gamemode, Boat *);
 
 #endif //NAVAL_BATTLE_DISPLAY_H
