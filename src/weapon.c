@@ -25,7 +25,7 @@ void available_weapon_list(Inventory *inventory, Weapon *list){
 
 static void tactical_attack_on_boat(Grid *grid, Boat boat){
     for(int i = 0; i < boat.size; i++){
-        grid->grid[boat.position[0]][boat.position[1]] = 'T';
+        grid->grid[boat.position[0]][boat.position[1]] = 'D';
         boat.position[0] += (boat.orientation == VERTICAL) ? 1 : 0;
         boat.position[1] += (boat.orientation == HORIZONTAL) ? 1 : 0;
     }
@@ -40,7 +40,7 @@ static int is_in_grid(Grid *grid, short int line, short int column){
 }
 
 static void attack_on_cell(Grid *grid, Boat *fleet, short int line, short int column, short int is_tactical){
-    if(is_in_grid(grid, line, column) && grid->grid[line][column] != 'X'){
+    if(is_in_grid(grid, line, column)){
         short int boat_touched = 0;
         short int boat_line, boat_column;
         for(int i = 0; i < 5; i++){
@@ -72,10 +72,10 @@ void fire_artillery(Grid *grid, Boat *fleet, short int line, short int column){
 }
 
 void fire_bomb(Grid *grid, Boat *fleet, short int line, short int column){
-    for(int i = -2; i < 3; i++) {
+    for(int i = -2; i < 2; i++) {
         attack_on_cell(grid, fleet, line + (int)sqrt(4 - pow(i, 2)), column + i, 0);
         attack_on_cell(grid, fleet, line - (int)sqrt(4 - pow(i, 2)), column - i, 0);
-        if(i > -2 && i < 2){
+        if(i > -2 && i < 1){
             attack_on_cell(grid, fleet, line + (int)sqrt(1 - pow(i, 2)), column + i, 0);
             attack_on_cell(grid, fleet, line - (int)sqrt(1 - pow(i, 2)), column - i, 0);
         }
