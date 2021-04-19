@@ -57,7 +57,7 @@ void show_remaining_boat(Grid *grid, Boat *fleet){
     printf("Remaining boat in fleet : %d\n", remaining_boat(grid, fleet));
     for(int i = 0; i < 5; i++){
         if(is_alive(grid, fleet[i])){
-            printf("  Boat %d : %d hp remaining\n", i+1, remaining_life(grid, fleet[i]));
+            printf("  Boat %d : %d/%d hp remaining\n", i+1, remaining_life(grid, fleet[i]), fleet[i].size);
         }
     }
 }
