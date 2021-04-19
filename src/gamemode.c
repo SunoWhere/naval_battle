@@ -24,8 +24,12 @@ static int is_boat_in_grid(Grid *grid, Boat boat, short int line, short int colu
     }
 }
 
-static void write_movement_on_grid(Grid *grid, Boat boat, short int new_line, short int new_column){
+static void write_movement_on_grid(Grid *grid, Boat boat, short int line_movement, short int column_movement){
+    if(line_movement > 0 || column_movement > 0){
 
+    }else{
+
+    }
 }
 
 static void active_move(Grid *grid, Boat *fleet){
@@ -38,6 +42,7 @@ static void active_move(Grid *grid, Boat *fleet){
         }while(!is_boat_in_grid(grid, fleet[index_boat], line_movement, column_movement));
         cell_taken = is_taken(grid, fleet[index_boat], line_movement + fleet[index_boat].position[0], column_movement + fleet[index_boat].position[1]);
     }while(cell_taken);
+    write_movement_on_grid(grid, fleet[index_boat], line_movement, column_movement);
     fleet[index_boat].position[0] += line_movement;
     fleet[index_boat].position[1] += column_movement;
 }
