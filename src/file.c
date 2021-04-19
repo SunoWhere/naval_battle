@@ -17,4 +17,5 @@ void save(const char *filename, Grid *grid, Inventory *inventory, Difficulty dif
         fprintf(save, "\n");
     }
     free(savefile_path);
+    fclose(save);
 }

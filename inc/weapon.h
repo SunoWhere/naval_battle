@@ -6,6 +6,7 @@
 #include <math.h>
 #include "struct.h"
 
+int is_in_grid(Grid *, short int, short int);
 int available_weapon(Inventory);
 void available_weapon_list(Inventory *, Weapon *);
 void fire_artillery(Grid *, Boat *, short int, short int);

@@ -1,6 +1,6 @@
 #include "game_initialization.h"
 
-static void initialize_grid(Grid *grid, int height, int width){
+void initialize_grid(Grid *grid, short int height, short int width){
     grid->height = height;
     grid->width = width;
     grid->grid = malloc(height * sizeof(char *));
@@ -40,7 +40,7 @@ static void initialize_fleet(Boat *fleet){
     }
 }
 
-static int is_occupied(Grid *grid, Boat boat, short int line, short int column){
+int is_taken(Grid *grid, Boat boat, short int line, short int column){
     int start_line = line, start_column = column;
     while((boat.orientation == VERTICAL && line - start_line < boat.size) || (boat.orientation == HORIZONTAL && (column - start_column < boat.size))){
         if(grid->grid[line][column] == 'B'){
@@ -67,7 +67,7 @@ static void set_fleet(Grid *grid, Boat *fleet){
         do{
             line = rand()%(grid->height - (fleet[i].size * (fleet[i].orientation == VERTICAL)));
             column = rand()%(grid->width - (fleet[i].size * (fleet[i].orientation == HORIZONTAL)));
-        }while(is_occupied(grid, fleet[i], line, column));
+        }while(is_taken(grid, fleet[i], line, column));
         fleet[i].position[0] = line;
         fleet[i].position[1] = column;
         set_boat(grid, fleet[i]);

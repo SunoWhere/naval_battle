@@ -25,13 +25,13 @@ void available_weapon_list(Inventory *inventory, Weapon *list){
 
 static void tactical_attack_on_boat(Grid *grid, Boat boat){
     for(int i = 0; i < boat.size; i++){
-        grid->grid[boat.position[0]][boat.position[1]] = 'D';
+        grid->grid[boat.position[0]][boat.position[1]] = 'X';
         boat.position[0] += (boat.orientation == VERTICAL) ? 1 : 0;
         boat.position[1] += (boat.orientation == HORIZONTAL) ? 1 : 0;
     }
 }
 
-static int is_in_grid(Grid *grid, short int line, short int column){
+int is_in_grid(Grid *grid, short int line, short int column){
     if(line < 0 || line > (grid->height - 1) || column < 0 || column > (grid->width - 1)){
         return 0;
     }else{
@@ -40,7 +40,7 @@ static int is_in_grid(Grid *grid, short int line, short int column){
 }
 
 static void attack_on_cell(Grid *grid, Boat *fleet, short int line, short int column, short int is_tactical){
-    if(is_in_grid(grid, line, column)){
+    if(is_in_grid(grid, line, column) && grid->grid[line][column] != 'X' || grid->grid[line][column] != 'D'){
         short int boat_touched = 0;
         short int boat_line, boat_column;
         for(int i = 0; i < 5; i++){
