@@ -5,7 +5,7 @@ void show_grid(Grid *grid){
     for (int i = 0; i < grid->height; i++) {
         printf(" %c ", 65+i);
         for (int j = 0; j < grid->width; ++j) {
-            grid->grid[i][j] == 'B' ? printf("| _ ") : printf("| %c ", grid->grid[i][j]);
+            grid->grid[i][j] == 'B' || grid->grid[i][j] == 'T' ? printf("| _ ") : printf("| %c ", grid->grid[i][j]);
         }
         printf(" |\n");
     }
