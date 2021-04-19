@@ -1,6 +1,8 @@
 #ifndef NAVAL_BATTLE_STRUCT_H
 #define NAVAL_BATTLE_STRUCT_H
 
+#define SAVE_DIR "save/"
+
 typedef enum{
     CLASSIC,
     BLIND,

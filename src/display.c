@@ -61,3 +61,16 @@ void show_remaining_boat(Grid *grid, Boat *fleet){
         }
     }
 }
+
+void show_classic(Grid *grid, Inventory *inventory, Difficulty difficulty, Mode gamemode, Boat *fleet){
+    printf("Difficulty = %s, Gamemode = %s\n", difficulty_str(difficulty), gamemode_str(gamemode));
+    show_grid(grid);
+    show_inventory(inventory);
+    show_remaining_boat(grid, fleet);
+}
+
+void show_blind(Grid *grid, Inventory *inventory, Difficulty difficulty, Mode gamemode, Boat *fleet){
+    printf("Difficulty = %s, Gamemode = %s\n", difficulty_str(difficulty), gamemode_str(gamemode));
+    show_inventory(inventory);
+    show_remaining_boat(grid, fleet);
+}

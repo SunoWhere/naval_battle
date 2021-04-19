@@ -95,9 +95,12 @@ static void new_game(Grid *grid, Inventory *inventory, Difficulty *difficulty, M
     set_fleet(grid, fleet);
 }
 
-static void load(Grid *grid, Inventory *inventory, Difficulty *difficulty, Mode *gamemode, Boat *fleet){
+void load(const char *filename, Grid *grid, Inventory *inventory, Difficulty *difficulty, Mode *gamemode, Boat *fleet){
     char *line = malloc(12 * sizeof(char));
-    FILE *save = fopen("save.txt", "r");
+    char *savefile_path = malloc(sizeof(SAVE_DIR) + sizeof(filename)+1);
+    strcpy(savefile_path, SAVE_DIR);
+    strcat(savefile_path, filename);
+    FILE *save = fopen(savefile_path, "r");
     if(save){
         fscanf(save ,"Difficulty=%d\nGamemode=%d\nArtillery=%hu Bomb=%hu Tactical=%hu Simple=%hu\n", difficulty, gamemode, &(inventory->artillery), &(inventory->bomb), &(inventory->tactical), &(inventory->simple_missile));
         initialize_fleet(fleet);
@@ -111,12 +114,14 @@ static void load(Grid *grid, Inventory *inventory, Difficulty *difficulty, Mode 
         printf("No save file found, a new game will start.\n");
         new_game(grid, inventory, difficulty, gamemode, fleet);
     }
+    free(savefile_path);
     free(line);
     fclose(save);
 }
 
 void initialization(Grid *grid, short int height, short int width, Inventory *inventory, Difficulty *difficulty, Mode *gamemode, Boat *fleet){
     int choice = 0;
+    mkdir(SAVE_DIR);
     initialize_grid(grid, height, width);
     printf("Welcome to Naval Battle : enhanced edition\n");
     printf("Do you want to :\n  1 : Start a new game\n  2 : Resume the previous game\n  3 : Exit game\n");
@@ -126,7 +131,7 @@ void initialization(Grid *grid, short int height, short int width, Inventory *in
             new_game(grid, inventory, difficulty, gamemode, fleet);
             break;
         case 2:
-            load(grid, inventory, difficulty, gamemode, fleet);
+            load("save.txt", grid, inventory, difficulty, gamemode, fleet);
             break;
         default:
             exit(0);

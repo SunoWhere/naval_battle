@@ -7,6 +7,6 @@
 #include <ctype.h>
 #include "struct.h"
 
-void save(Grid *, Inventory *, Difficulty, Mode, Boat *);
+void save(const char *, Grid *, Inventory *, Difficulty, Mode, Boat *);
 
 #endif //NAVAL_BATTLE_FILE_H

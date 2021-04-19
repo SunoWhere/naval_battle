@@ -1,7 +1,10 @@
 #include "file.h"
 
-void save(Grid *grid, Inventory *inventory, Difficulty difficulty, Mode gamemode, Boat *fleet){
-    FILE *save = fopen("save.txt", "w");
+void save(const char *filename, Grid *grid, Inventory *inventory, Difficulty difficulty, Mode gamemode, Boat *fleet){
+    char *savefile_path = malloc(sizeof(SAVE_DIR) + sizeof(filename)+1);
+    strcpy(savefile_path, SAVE_DIR);
+    strcat(savefile_path, filename);
+    FILE *save = fopen(savefile_path, "w");
     fprintf(save, "Difficulty=%d\nGamemode=%d\n", difficulty, gamemode);
     fprintf(save, "Artillery=%hu Bomb=%hu Tactical=%hu Simple=%hu\n", inventory->artillery, inventory->bomb, inventory->tactical, inventory->simple_missile);
     for(int i = 0; i < 5; i++){
@@ -13,4 +16,5 @@ void save(Grid *grid, Inventory *inventory, Difficulty difficulty, Mode gamemode
         }
         fprintf(save, "\n");
     }
+    free(savefile_path);
 }

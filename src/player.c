@@ -70,7 +70,7 @@ void player_menu(Grid *grid, Inventory *inventory, Difficulty difficulty, Mode g
             weapon_menu(grid, inventory, fleet);
             break;
         default:
-            save(grid, inventory, difficulty, gamemode, fleet);
+            save("save.txt" ,grid, inventory, difficulty, gamemode, fleet);
             exit(0);
     }
 }
