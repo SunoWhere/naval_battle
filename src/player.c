@@ -61,7 +61,7 @@ static void weapon_menu(Grid *grid, Inventory *inventory, Boat *fleet){
     }
 }
 
-void player_menu(Grid *grid, Inventory *inventory, Difficulty difficulty, Mode gamemode, Boat *fleet){
+void player_menu(Grid *grid, Grid *grid_displayed_active, Inventory *inventory, Difficulty difficulty, Mode gamemode, Boat *fleet){
     int choice;
     printf("Please select action :\n  1 : Play\n  2 : Save and quit\n");
     input_choice(&choice, 1, 2);
@@ -70,7 +70,7 @@ void player_menu(Grid *grid, Inventory *inventory, Difficulty difficulty, Mode g
             weapon_menu(grid, inventory, fleet);
             break;
         default:
-            save("save.txt" ,grid, inventory, difficulty, gamemode, fleet);
+            save("save.txt", grid, grid_displayed_active, inventory, difficulty, gamemode, fleet);
             exit(0);
     }
 }

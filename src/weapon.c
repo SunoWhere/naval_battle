@@ -40,7 +40,7 @@ int is_in_grid(Grid *grid, short int line, short int column){
 }
 
 static void attack_on_cell(Grid *grid, Boat *fleet, short int line, short int column, short int is_tactical){
-    if(is_in_grid(grid, line, column) && grid->grid[line][column] != 'X' || grid->grid[line][column] != 'D'){
+    if(is_in_grid(grid, line, column) && (grid->grid[line][column] != 'X' || grid->grid[line][column] != 'D')){
         short int boat_touched = 0;
         short int boat_line, boat_column;
         for(int i = 0; i < 5; i++){

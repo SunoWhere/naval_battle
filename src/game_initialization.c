@@ -40,21 +40,47 @@ static void initialize_fleet(Boat *fleet){
     }
 }
 
-int is_taken(Grid *grid, Boat boat, short int line, short int column){
+int is_taken(Boat *fleet, Boat boat, short int line, short int column){
+    short int boat_start_line = line, boat_start_column =column;
+    short int fleet_boat_line, fleet_boat_column;
+    for(int i = 0; i < 5; i++){
+        line = boat_start_line;
+        column = boat_start_column;
+        if(boat.position[0] == fleet[i].position[0] && boat.position[1] == fleet[i].position[1]){
+        }else{
+            for(int j = 0; j < boat.size; j++) {
+                fleet_boat_line = fleet[i].position[0];
+                fleet_boat_column = fleet[i].position[1];
+                for(int k = 0; k < fleet[i].size; k++) {
+                    if(line == fleet_boat_line && column == fleet_boat_column){
+                        //printf("%c%d is taken\n", line + 65, column + 1 );
+                        return 1;
+                    }
+                    fleet_boat_line += (fleet[i].orientation == VERTICAL) ? 1 : 0;
+                    fleet_boat_column += (fleet[i].orientation == HORIZONTAL) ? 1 : 0;
+                }
+                line += (boat.orientation == VERTICAL) ? 1 : 0;
+                column += (boat.orientation == HORIZONTAL) ? 1 : 0;
+            }
+        }
+    }
+    return 0;
+    /*
     int start_line = line, start_column = column;
     while((boat.orientation == VERTICAL && line - start_line < boat.size) || (boat.orientation == HORIZONTAL && (column - start_column < boat.size))){
-        if(grid->grid[line][column] == 'B'){
+        if(grid->grid[line][column] == 'B' || grid->grid[line][column] == 'X' || grid->grid[line][column] == 'D'){
             return 1;
         }
         line += (boat.orientation == VERTICAL) ? 1 : 0;
         column += (boat.orientation == HORIZONTAL) ? 1 : 0;
     }
     return 0;
+     */
 }
 
-static void set_boat(Grid *grid, Boat boat){
+void set_boat(Grid *grid, Boat boat, char *boat_representation){
     for(int i = 0; i < boat.size; i++) {
-        grid->grid[boat.position[0]][boat.position[1]] = 'B';
+        grid->grid[boat.position[0]][boat.position[1]] = boat_representation[i];
         boat.position[0] += (boat.orientation == VERTICAL) ? 1 : 0;
         boat.position[1] += (boat.orientation == HORIZONTAL) ? 1 : 0;
     }
@@ -67,10 +93,10 @@ static void set_fleet(Grid *grid, Boat *fleet){
         do{
             line = rand()%(grid->height - (fleet[i].size * (fleet[i].orientation == VERTICAL)));
             column = rand()%(grid->width - (fleet[i].size * (fleet[i].orientation == HORIZONTAL)));
-        }while(is_taken(grid, fleet[i], line, column));
+        }while(is_taken(fleet, fleet[i], line, column));
         fleet[i].position[0] = line;
         fleet[i].position[1] = column;
-        set_boat(grid, fleet[i]);
+        set_boat(grid, fleet[i], "BBBBB");
     }
 }
 
@@ -88,14 +114,17 @@ static void set_gamemode(Mode *gamemode){
     *gamemode = choice - 1;
 }
 
-static void new_game(Grid *grid, Inventory *inventory, Difficulty *difficulty, Mode *gamemode, Boat *fleet){
+static void new_game(Grid *grid, Grid *grid_displayed_active, Inventory *inventory, Difficulty *difficulty, Mode *gamemode, Boat *fleet){
     set_difficulty(difficulty);
     set_gamemode(gamemode);
+    if(*gamemode == ACTIVE){
+        initialize_grid(grid_displayed_active, grid->height, grid->width);
+    }
     initialize_inventory(inventory, *difficulty);
     set_fleet(grid, fleet);
 }
 
-void load(const char *filename, Grid *grid, Inventory *inventory, Difficulty *difficulty, Mode *gamemode, Boat *fleet){
+void load(const char *filename, Grid *grid, Grid *grid_displayed_active, Inventory *inventory, Difficulty *difficulty, Mode *gamemode, Boat *fleet){
     char *line = malloc(12 * sizeof(char));
     char *savefile_path = malloc(sizeof(SAVE_DIR) + sizeof(filename)+1);
     strcpy(savefile_path, SAVE_DIR);
@@ -107,19 +136,27 @@ void load(const char *filename, Grid *grid, Inventory *inventory, Difficulty *di
         for(int i = 0; i < 5; i++){
             fscanf(save, "B=%hu,%hu,%d\n", &(fleet[i].position[0]), &(fleet[i].position[1]), &(fleet[i].orientation));
         }
-        for(int i = 0;(fgets(line, 12 * sizeof(char), save)) != NULL; i++){
+        for(int i = 0; i < 10; i++){
+            fgets(line, 12 * sizeof(char), save);
             strcpy(grid->grid[i], line);
+        }
+        if(*gamemode == ACTIVE){
+            initialize_grid(grid_displayed_active, grid->height, grid->width);
+            for (int i = 0; i < 10; i++) {
+                fgets(line, 12 * sizeof(char), save);
+                strcpy(grid_displayed_active->grid[i], line);
+            }
         }
     }else{
         printf("No save file found, a new game will start.\n");
-        new_game(grid, inventory, difficulty, gamemode, fleet);
+        new_game(grid, grid_displayed_active, inventory, difficulty, gamemode, fleet);
     }
     free(savefile_path);
     free(line);
     fclose(save);
 }
 
-void initialization(Grid *grid, short int height, short int width, Inventory *inventory, Difficulty *difficulty, Mode *gamemode, Boat *fleet){
+void initialization(Grid *grid, Grid *grid_displayed_active, short int height, short int width, Inventory *inventory, Difficulty *difficulty, Mode *gamemode, Boat *fleet){
     int choice = 0;
     mkdir(SAVE_DIR);
     initialize_grid(grid, height, width);
@@ -128,10 +165,10 @@ void initialization(Grid *grid, short int height, short int width, Inventory *in
     input_choice(&choice, 1, 3);
     switch(choice){
         case 1:
-            new_game(grid, inventory, difficulty, gamemode, fleet);
+            new_game(grid, grid_displayed_active, inventory, difficulty, gamemode, fleet);
             break;
         case 2:
-            load("save.txt", grid, inventory, difficulty, gamemode, fleet);
+            load("save.txt", grid, grid_displayed_active, inventory, difficulty, gamemode, fleet);
             break;
         default:
             exit(0);

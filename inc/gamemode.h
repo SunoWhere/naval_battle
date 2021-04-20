@@ -7,6 +7,7 @@
 #include "player.h"
 #include "game_initialization.h"
 #include "weapon.h"
+#include "boat.h"
 
 void run_game(Grid *, Grid *, Inventory *, Difficulty, Mode, Boat *);
 

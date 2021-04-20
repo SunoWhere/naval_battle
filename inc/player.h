@@ -6,7 +6,7 @@
 #include "stdjm.h"
 #include "file.h"
 
-void player_menu(Grid *, Inventory *, Difficulty, Mode, Boat *);
+void player_menu(Grid *, Grid *, Inventory *, Difficulty, Mode, Boat *);
 
 #endif //NAVAL_BATTLE_PLAYER_H
 

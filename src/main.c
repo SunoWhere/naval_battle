@@ -6,22 +6,15 @@
 int main(void){
     srand(time(0));
     Grid grid;
+    Grid grid_displayed;
     Inventory inventory;
     Difficulty difficulty;
     Mode gamemode;
     Boat fleet[5];
 
-    initialization(&grid, 10, 10, &inventory, &difficulty, &gamemode, fleet);
+    initialization(&grid, &grid_displayed, 10, 10, &inventory, &difficulty, &gamemode, fleet);
 
-    if(gamemode == ACTIVE){
-        Grid grid_displayed;
-        initialize_grid(&grid_displayed, grid.height, grid.width);
-        run_game(&grid, &grid_displayed, &inventory, difficulty, gamemode, fleet);
-    }else{
-        run_game(&grid, NULL, &inventory, difficulty, gamemode, fleet);
-    }
-
-
+    run_game(&grid, &grid_displayed, &inventory, difficulty, gamemode, fleet);
 
     return 0;
 
