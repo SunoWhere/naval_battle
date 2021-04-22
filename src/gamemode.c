@@ -24,22 +24,22 @@ static void active_copy(Grid *grid, Grid *grid_displayed){
 }
 
 static int is_boat_in_grid(Grid *grid, Boat boat, short int line, short int column) {
-    if (is_in_grid(grid, line + boat.size * (boat.orientation == VERTICAL), column + boat.size * (boat.orientation == HORIZONTAL))){
-        return 1;
-    } else {
-        return 0;
+    for(int i = 0; i < boat.size; i++){
+        if(!is_in_grid(grid, line, column)){
+            return 0;
+        }
+        line += boat.orientation == VERTICAL ? 1 : 0;
+        column += boat.orientation == HORIZONTAL ? 1 : 0;
     }
+    return 1;
 }
 
 static void get_boat(Grid *grid, Boat boat, short int line, short int column , char *boat_string){
-    printf("l=%d, c=%d\n", line, column);
-    printf("%d", boat.size);
     for(int i = 0; i < boat.size; i++){
         boat_string[i] = (grid->grid[line][column] == 'X' ||  grid->grid[line][column] == 'D') ? 'D' : 'B';
         grid->grid[line][column] = '_';
         line += boat.orientation == VERTICAL ? 1 : 0;
         column += boat.orientation == HORIZONTAL ? 1 : 0;
-        show_grid_debug(grid);
     }
     boat_string[boat.size] = '\0';
 }
@@ -49,8 +49,8 @@ static void active_move(Grid *grid, Boat *fleet){
     char boat_string[6] = "\0";
     do{
         index_boat = rand()%5;
-        new_line = fleet[index_boat].orientation == VERTICAL ? rand()%4 + (fleet[index_boat].position[0] - 3) : fleet[index_boat].position[0];
-        new_column = fleet[index_boat].orientation == HORIZONTAL ? rand()%4 + (fleet[index_boat].position[1] - 3) : fleet[index_boat].position[1];
+        new_line = fleet[index_boat].orientation == VERTICAL ? fleet[index_boat].position[0] + (rand()%2 ? rand()%3 + 1 : -(rand()%3 + 1)) : fleet[index_boat].position[0];
+        new_column = fleet[index_boat].orientation == HORIZONTAL ? fleet[index_boat].position[1] + (rand()%2 ? rand()%3 + 1 : -(rand()%3 + 1)) : fleet[index_boat].position[1];
         cell_taken = is_taken(fleet, index_boat, new_line, new_column);
         same_position = fleet[index_boat].position[0] == new_line && fleet[index_boat].position[1] == new_column;
     }while(cell_taken || !is_alive(grid, fleet[index_boat]) || !is_boat_in_grid(grid, fleet[index_boat], new_line, new_column) || same_position);
@@ -58,6 +58,7 @@ static void active_move(Grid *grid, Boat *fleet){
     fleet[index_boat].position[0] = new_line;
     fleet[index_boat].position[1] = new_column;
     set_boat(grid, fleet[index_boat], boat_string);
+    printf("Boat %d has been moved\n", index_boat + 1);
 }
 
 void run_game(Grid *grid, Grid *grid_displayed_active, Inventory *inventory, Difficulty difficulty, Mode gamemode, Boat *fleet){

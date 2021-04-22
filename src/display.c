@@ -59,7 +59,7 @@ void show_remaining_boat(Grid *grid, Boat *fleet){
     printf("Remaining boat in fleet : %d\n", remaining_boat(grid, fleet));
     for(int i = 0; i < 5; i++){
         if(is_alive(grid, fleet[i])){
-            printf("  Boat %d : %d/%d hp remaining\n", i+1, remaining_life(grid, fleet[i]), fleet[i].size);
+            printf("  Boat %d : %d/%d hp remaining l=%d c=%d\n", i+1, remaining_life(grid, fleet[i]), fleet[i].size, fleet[i].position[0], fleet[i].position[1]);
         }
     }
     printf("\n");
@@ -73,7 +73,6 @@ void show_difficulty_gamemode(Difficulty difficulty, Mode gamemode){
 void show_classic(Grid *grid, Inventory *inventory, Difficulty difficulty, Mode gamemode, Boat *fleet){
     show_difficulty_gamemode(difficulty, gamemode);
     show_grid(grid);
-    show_grid_debug(grid);
     show_inventory(inventory);
     show_remaining_boat(grid, fleet);
 }
@@ -87,7 +86,6 @@ void show_blind(Grid *grid, Inventory *inventory, Difficulty difficulty, Mode ga
 void show_active(Grid *grid, Grid *grid_displayed_active, Inventory *inventory, Difficulty difficulty, Mode gamemode, Boat *fleet){
     show_difficulty_gamemode(difficulty, gamemode);
     show_grid(grid_displayed_active);
-    show_grid_debug(grid);
     show_inventory(inventory);
     show_remaining_boat(grid, fleet);
 }

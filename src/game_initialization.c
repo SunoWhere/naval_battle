@@ -66,10 +66,11 @@ int is_taken(Boat *fleet, short int boat_index, short int line, short int column
 }
 
 void set_boat(Grid *grid, Boat boat, char *boat_representation){
-    for(int i = 0; i < boat.size; i++) {
-        grid->grid[boat.position[0]][boat.position[1]] = boat_representation[i];
-        boat.position[0] += (boat.orientation == VERTICAL) ? 1 : 0;
-        boat.position[1] += (boat.orientation == HORIZONTAL) ? 1 : 0;
+    short int line = boat.position[0], column = boat.position[1];
+    for(int i = 0; i < boat.size; i++){
+        grid->grid[line][column] = boat_representation[i];
+        line += (boat.orientation == VERTICAL) ? 1 : 0;
+        column += (boat.orientation == HORIZONTAL) ? 1 : 0;
     }
 }
 
