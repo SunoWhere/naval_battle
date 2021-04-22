@@ -12,7 +12,7 @@ void show_grid(Grid *grid){
     printf("\n");
 }
 
-void show_grid_debug(Grid *grid){
+/*void show_grid_debug(Grid *grid){
     printf("   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |\n");
     for (int i = 0; i < grid->height; i++) {
         printf(" %c ", 65+i);
@@ -22,7 +22,7 @@ void show_grid_debug(Grid *grid){
         printf(" |\n");
     }
     printf("\n");
-}
+}*/
 
 void show_inventory(Inventory *inventory){
     printf("Inventory :\n"
@@ -59,7 +59,7 @@ void show_remaining_boat(Grid *grid, Boat *fleet){
     printf("Remaining boat in fleet : %d\n", remaining_boat(grid, fleet));
     for(int i = 0; i < 5; i++){
         if(is_alive(grid, fleet[i])){
-            printf("  Boat %d : %d/%d hp remaining l=%d c=%d\n", i+1, remaining_life(grid, fleet[i]), fleet[i].size, fleet[i].position[0], fleet[i].position[1]);
+            printf("  Boat %d : %d/%d hp remaining\n", i+1, remaining_life(grid, fleet[i]), fleet[i].size);
         }
     }
     printf("\n");
