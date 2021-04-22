@@ -52,7 +52,6 @@ int is_taken(Boat *fleet, short int boat_index, short int line, short int column
                 fleet_boat_column = fleet[i].position[1];
                 for(int k = 0; k < fleet[i].size; k++) {
                     if(line == fleet_boat_line && column == fleet_boat_column){
-                        //printf("%c%d is taken\n", line + 65, column + 1 );
                         return 1;
                     }
                     fleet_boat_line += (fleet[i].orientation == VERTICAL) ? 1 : 0;
@@ -64,17 +63,6 @@ int is_taken(Boat *fleet, short int boat_index, short int line, short int column
         }
     }
     return 0;
-    /*
-    int start_line = line, start_column = column;
-    while((boat.orientation == VERTICAL && line - start_line < boat.size) || (boat.orientation == HORIZONTAL && (column - start_column < boat.size))){
-        if(grid->grid[line][column] == 'B' || grid->grid[line][column] == 'X' || grid->grid[line][column] == 'D'){
-            return 1;
-        }
-        line += (boat.orientation == VERTICAL) ? 1 : 0;
-        column += (boat.orientation == HORIZONTAL) ? 1 : 0;
-    }
-    return 0;
-     */
 }
 
 void set_boat(Grid *grid, Boat boat, char *boat_representation){
