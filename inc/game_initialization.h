@@ -12,7 +12,7 @@
 #include "stdjm.h"
 
 void initialize_grid(Grid *, short int, short int);
-int is_taken(Boat*, Boat, short int, short int);
+int is_taken(Boat*, short int, short int, short int);
 void set_boat(Grid *, Boat, char *);
 void load(const char *, Grid *, Grid *, Inventory *, Difficulty *, Mode *, Boat *);
 void initialization(Grid *, Grid *, short int, short int, Inventory *, Difficulty *, Mode *, Boat *);

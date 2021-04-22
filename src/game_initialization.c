@@ -40,15 +40,14 @@ static void initialize_fleet(Boat *fleet){
     }
 }
 
-int is_taken(Boat *fleet, Boat boat, short int line, short int column){
-    short int boat_start_line = line, boat_start_column =column;
+int is_taken(Boat *fleet, short int boat_index, short int line, short int column){
+    short int boat_start_line = line, boat_start_column = column;
     short int fleet_boat_line, fleet_boat_column;
     for(int i = 0; i < 5; i++){
         line = boat_start_line;
         column = boat_start_column;
-        if(boat.position[0] == fleet[i].position[0] && boat.position[1] == fleet[i].position[1]){
-        }else{
-            for(int j = 0; j < boat.size; j++) {
+        if(boat_index != i){
+            for(int j = 0; j < fleet[boat_index].size; j++) {
                 fleet_boat_line = fleet[i].position[0];
                 fleet_boat_column = fleet[i].position[1];
                 for(int k = 0; k < fleet[i].size; k++) {
@@ -59,8 +58,8 @@ int is_taken(Boat *fleet, Boat boat, short int line, short int column){
                     fleet_boat_line += (fleet[i].orientation == VERTICAL) ? 1 : 0;
                     fleet_boat_column += (fleet[i].orientation == HORIZONTAL) ? 1 : 0;
                 }
-                line += (boat.orientation == VERTICAL) ? 1 : 0;
-                column += (boat.orientation == HORIZONTAL) ? 1 : 0;
+                line += (fleet[boat_index].orientation == VERTICAL) ? 1 : 0;
+                column += (fleet[boat_index].orientation == HORIZONTAL) ? 1 : 0;
             }
         }
     }
@@ -93,7 +92,7 @@ static void set_fleet(Grid *grid, Boat *fleet){
         do{
             line = rand()%(grid->height - (fleet[i].size * (fleet[i].orientation == VERTICAL)));
             column = rand()%(grid->width - (fleet[i].size * (fleet[i].orientation == HORIZONTAL)));
-        }while(is_taken(fleet, fleet[i], line, column));
+        }while(is_taken(fleet, i, line, column));
         fleet[i].position[0] = line;
         fleet[i].position[1] = column;
         set_boat(grid, fleet[i], "BBBBB");
