@@ -72,7 +72,7 @@ void fire_artillery(Grid *grid, Boat *fleet, short int line, short int column){
 }
 
 void fire_bomb(Grid *grid, Boat *fleet, short int line, short int column){
-    for(int i = -2; i < 2; i++) {
+    for(int i = -2; i < 2; i++){
         attack_on_cell(grid, fleet, line + (int)sqrt(4 - pow(i, 2)), column + i, 0);
         attack_on_cell(grid, fleet, line - (int)sqrt(4 - pow(i, 2)), column - i, 0);
         if(i > -2 && i < 1){
