@@ -1,14 +1,15 @@
 #include "file.h"
 
 /**
- *
- * @param filename
- * @param grid
- * @param grid_displayed_active
- * @param inventory
- * @param difficulty
- * @param gamemode
- * @param fleet
+ * Fonction servant à la création ou l'actualisation d'un fichier texte pour la persistance des données de la partie
+ * actuelle du joueur
+ * @param filename - Nom du fichier de sauvegarde (on utilisera save.txt)
+ * @param grid - Grille de jeu
+ * @param grid_displayed_active - Grille de jeu servant à l'affichage dans le mode ACTIVE
+ * @param inventory - Inventaire du joueur
+ * @param difficulty - Difficulté actuelle
+ * @param gamemode - Mode de jeu actuel
+ * @param fleet - Flotte contenant les bateaux ennemis
  */
 void save(const char *filename, Grid *grid, Grid *grid_displayed_active, Inventory *inventory, Difficulty difficulty, Mode gamemode, Boat *fleet){
     char *savefile_path = malloc(sizeof(SAVE_DIR) + sizeof(filename)+1);
