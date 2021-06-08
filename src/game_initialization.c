@@ -1,10 +1,11 @@
 #include "game_initialization.h"
 
 /**
- *
- * @param grid
- * @param height
- * @param width
+ * Initialise les structures de type Grid dont la taille (hauteur et largeur) est définie en paramètre, la grille est
+ * un tableau de chaînes de charactères, le charatère de base, remplissant les chaînes, est le charactère "_"
+ * @param  - Grille à initialiser (structure de type Grid)
+ * @param height - Hauteur de la grille
+ * @param width - Largeur de la grille
  */
 void initialize_grid(Grid *grid, short int height, short int width){
     grid->height = height;
@@ -17,12 +18,12 @@ void initialize_grid(Grid *grid, short int height, short int width){
 }
 
 /**
- *
- * @param inventory
- * @param artillery
- * @param bomb
- * @param tactical
- * @param simple_missile
+ * Définit la quantité de chaque arme de l'inventaire du joueur en fonction des paramètres donnés
+ * @param inventory - Inventaire du joueur
+ * @param artillery - Quantité de missiles d'artillerie à initialiser
+ * @param bomb - Quantité de bombes à initialiser
+ * @param tactical - Quantité de missiles tactiques à initialiser
+ * @param simple_missile - Quantité de missiles simples à initialiser
  */
 static void set_inventory(Inventory *inventory, short int artillery, short int bomb, short int tactical, short int simple_missile){
     inventory->artillery = artillery;
@@ -32,9 +33,9 @@ static void set_inventory(Inventory *inventory, short int artillery, short int b
 }
 
 /**
- *
- * @param inventory
- * @param difficulty
+ * Initialise l'inventaire en fonction de la difficulté qui a été choisie pour la partie
+ * @param inventory - Inventaire du joueur
+ * @param difficulty - Difficulté actuelle
  */
 static void initialize_inventory(Inventory *inventory, Difficulty difficulty){
     switch(difficulty){
@@ -53,8 +54,9 @@ static void initialize_inventory(Inventory *inventory, Difficulty difficulty){
 }
 
 /**
- *
- * @param fleet
+ * Initialise la flotte de bateaux, les bateaux ont différentes tailles (Taille : 2, 3, 3, 4, 5) et l'orientation du
+ * bateau est générée de manière aléatoire (soit verticale, soit horizontale)
+ * @param fleet - Flotte contenant les bateaux ennemis
  */
 static void initialize_fleet(Boat *fleet){
     for(int i = 0; i < 5; i++){
@@ -64,12 +66,15 @@ static void initialize_fleet(Boat *fleet){
 }
 
 /**
- *
- * @param fleet
- * @param boat_index
- * @param line
- * @param column
- * @return
+ * Récupère la flotte, l'index du bateau dans la flotte, les coordonnées du bateau, et détermine si les coordonnées
+ * correspondent à un emplacement libre en fonction de la taille du bateau et des coordonnées des autres bateaux
+ * définis dans la flotte et de leur taille
+ * @param fleet - Flotte contenant les bateaux ennemis
+ * @param boat_index - Index du bateau dans la flotte
+ * @param line - Ligne de la grille sélectionnée
+ * @param column - Colonne de la grille sélectionnée
+ * @return Retourne 1, si le bateau se supperpose sur un autre bateau de la flotte, retourne 0, si le bateau ne se
+ * supperpose à aucun bateau de la flotte et peut donc être placé
  */
 int is_taken(Boat *fleet, short int boat_index, short int line, short int column){
     short int boat_start_line = line, boat_start_column = column;
@@ -97,10 +102,10 @@ int is_taken(Boat *fleet, short int boat_index, short int line, short int column
 }
 
 /**
- *
- * @param grid
- * @param boat
- * @param boat_representation
+ * Place le bateau dans la grille sous forme d'une chaîne de charactère
+ * @param grid - Grille de jeu
+ * @param boat - Bateau à placer
+ * @param boat_representation - Chaîne de charactères correspondant à la manière dont sera écrit le bateau sur la grile
  */
 void set_boat(Grid *grid, Boat boat, char *boat_representation){
     short int line = boat.position[0], column = boat.position[1];
@@ -112,9 +117,11 @@ void set_boat(Grid *grid, Boat boat, char *boat_representation){
 }
 
 /**
- *
- * @param grid
- * @param fleet
+ * Appelle la fonction d'initialisation de la flotte et place les bateaux dans la grille, les coordonnées sont générées
+ * de manière procédurale, ce n'est pas purement aléatoire car il y a des contraintes liées à la taille de la grille,
+ * la taille du bateau, et l'orientation
+ * @param grid - Grille de jeu
+ * @param fleet - Flotte contenant les bateaux ennemis
  */
 static void set_fleet(Grid *grid, Boat *fleet){
     initialize_fleet(fleet);
@@ -131,8 +138,8 @@ static void set_fleet(Grid *grid, Boat *fleet){
 }
 
 /**
- *
- * @param difficulty
+ * Permet au joueur de définir la difficulté du jeu
+ * @param difficulty - Difficulté du jeu à définir
  */
 static void set_difficulty(Difficulty *difficulty){
     int choice = 0;
@@ -142,8 +149,8 @@ static void set_difficulty(Difficulty *difficulty){
 }
 
 /**
- *
- * @param gamemode
+ * Permet au joueur de définir le mode de jeu
+ * @param gamemode - Mode de jeu à définir
  */
 static void set_gamemode(Mode *gamemode){
     int choice = 0;
@@ -153,13 +160,13 @@ static void set_gamemode(Mode *gamemode){
 }
 
 /**
- *
- * @param grid
- * @param grid_displayed_active
- * @param inventory
- * @param difficulty
- * @param gamemode
- * @param fleet
+ * Appelle les différentes fonctions relatives à la création d'une nouvelle partie
+ * @param grid - Grille de jeu
+ * @param grid_displayed_active - Grille de jeu à afficher dans le cas où le joueur joue en mode ACTIVE
+ * @param inventory - Inventaire du joueur
+ * @param difficulty - Difficulté de la partie
+ * @param gamemode - Mode de jeu
+ * @param fleet - Flotte qui va contenir l'ensemble des bateaux ennemis
  */
 static void new_game(Grid *grid, Grid *grid_displayed_active, Inventory *inventory, Difficulty *difficulty, Mode *gamemode, Boat *fleet){
     set_difficulty(difficulty);
