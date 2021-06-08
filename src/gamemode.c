@@ -1,8 +1,8 @@
 #include "gamemode.h"
 
 /**
- *
- * @param grid
+ * Fonction permettant la libération de la mémoire prise par la grille
+ * @param grid - Grille à libérer
  */
 static void free_grid(Grid *grid){
     for (int i = 0; i < grid->height; i++) {
@@ -12,9 +12,10 @@ static void free_grid(Grid *grid){
 }
 
 /**
- *
- * @param grid
- * @param grid_displayed
+ * Copie de la grille de jeu dans la grille de jeu à afficher en mode ACTIVE en remplaçant les éléments d'impacts de la
+ * grille de jeu de base par un "_" si la case correspond à un "O"
+ * @param grid - Grille de jeu
+ * @param grid_displayed - Grille de jeu à afficher en mode ACTIVE
  */
 static void active_copy(Grid *grid, Grid *grid_displayed){
     for(int i = 0; i < grid->height; i++){
@@ -33,12 +34,14 @@ static void active_copy(Grid *grid, Grid *grid_displayed){
 }
 
 /**
- *
- * @param grid
- * @param boat
- * @param line
- * @param column
- * @return
+ * Récupère la grille de jeu, le bateau dont on veut connaître le status, les nouvelles coordonnées du bateau et
+ * détermine si le bateau et toujours dans la grille de jeu en fonction de la taille du bateau, la taille de grille
+ * de jeu et les nouvelles coordonnées du bateau
+ * @param grid - Grille de jeu
+ * @param boat - Bateau dont on veut tester les nouvelles coordonnées
+ * @param line - Nouvelle ligne
+ * @param column - Nouvelle colonne
+ * @return Retourne 0, si le bateau n'est plus dans la grille, retourne 1, si le bateau est encore dans la grille
  */
 static int is_boat_in_grid(Grid *grid, Boat boat, short int line, short int column) {
     for(int i = 0; i < boat.size; i++){
@@ -52,12 +55,13 @@ static int is_boat_in_grid(Grid *grid, Boat boat, short int line, short int colu
 }
 
 /**
- *
- * @param grid
- * @param boat
- * @param line
- * @param column
- * @param boat_string
+ * Récupère la chaîne de charactères correspondant au bateau, en fonction de sa position et de sa taille, avec les
+ * parties impactées par des missiles remplacés par des "D"
+ * @param grid - Grille de jeu
+ * @param boat - Bateau à récupérer
+ * @param line - Ligne de la grille correspondant à la position de la tête du bateau
+ * @param column - Colonne de la grille correspondant à la position de la tête du bateau
+ * @param boat_string - Chaîne de charactères qui va permettre stocker la chaîne du bateau
  */
 static void get_boat(Grid *grid, Boat boat, short int line, short int column , char *boat_string){
     for(int i = 0; i < boat.size; i++){
@@ -70,9 +74,9 @@ static void get_boat(Grid *grid, Boat boat, short int line, short int column , c
 }
 
 /**
- *
- * @param grid
- * @param fleet
+ * Déplace aléatoirement l'un des bateaux restants de la flotte dans la grille de jeu
+ * @param grid - Grille de jeu où on va écrire le déplacement
+ * @param fleet - Flotte contenant les bateaux ennemis
  */
 static void active_move(Grid *grid, Boat *fleet){
     short int index_boat, new_line, new_column, cell_taken, same_position;
@@ -92,13 +96,15 @@ static void active_move(Grid *grid, Boat *fleet){
 }
 
 /**
- *
- * @param grid
- * @param grid_displayed_active
- * @param inventory
- * @param difficulty
- * @param gamemode
- * @param fleet
+ * Appelle l'ensemble des fonctions permettant le bon déroulement de la partie en fonction du mode jeu, et détermine
+ * si le joueur à gagner ou non en fonction de s'il reste des bateaux ou non lorsque le joueur n'a plus d'armes, s'il
+ * n'y a plus bateau et que le joueur à encore des armes. Après ça, la mémoire des différentes variables est libérée
+ * @param grid - Grille de jeu
+ * @param grid_displayed_active - Grille de jeu à afficher uniquement en mode ACTIVE
+ * @param inventory - Inventaire du joueur
+ * @param difficulty - Difficulté de la partie
+ * @param gamemode - Mode de jeu de la patie
+ * @param fleet - Flotte contenant l'ensemble des bateaux ennemis
  */
 void run_game(Grid *grid, Grid *grid_displayed_active, Inventory *inventory, Difficulty difficulty, Mode gamemode, Boat *fleet){
     while(remaining_boat(grid, fleet) && available_weapon(*inventory)){
