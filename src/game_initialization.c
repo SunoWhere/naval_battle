@@ -1,5 +1,11 @@
 #include "game_initialization.h"
 
+/**
+ *
+ * @param grid
+ * @param height
+ * @param width
+ */
 void initialize_grid(Grid *grid, short int height, short int width){
     grid->height = height;
     grid->width = width;
@@ -10,6 +16,14 @@ void initialize_grid(Grid *grid, short int height, short int width){
     }
 }
 
+/**
+ *
+ * @param inventory
+ * @param artillery
+ * @param bomb
+ * @param tactical
+ * @param simple_missile
+ */
 static void set_inventory(Inventory *inventory, short int artillery, short int bomb, short int tactical, short int simple_missile){
     inventory->artillery = artillery;
     inventory->bomb = bomb;
@@ -17,6 +31,11 @@ static void set_inventory(Inventory *inventory, short int artillery, short int b
     inventory->simple_missile = simple_missile;
 }
 
+/**
+ *
+ * @param inventory
+ * @param difficulty
+ */
 static void initialize_inventory(Inventory *inventory, Difficulty difficulty){
     switch(difficulty){
         case EASY:
@@ -33,6 +52,10 @@ static void initialize_inventory(Inventory *inventory, Difficulty difficulty){
     }
 }
 
+/**
+ *
+ * @param fleet
+ */
 static void initialize_fleet(Boat *fleet){
     for(int i = 0; i < 5; i++){
         fleet[i].size = i < 2 ? i + 2 : i + 1;
@@ -40,6 +63,14 @@ static void initialize_fleet(Boat *fleet){
     }
 }
 
+/**
+ *
+ * @param fleet
+ * @param boat_index
+ * @param line
+ * @param column
+ * @return
+ */
 int is_taken(Boat *fleet, short int boat_index, short int line, short int column){
     short int boat_start_line = line, boat_start_column = column;
     short int fleet_boat_line, fleet_boat_column;
@@ -65,6 +96,12 @@ int is_taken(Boat *fleet, short int boat_index, short int line, short int column
     return 0;
 }
 
+/**
+ *
+ * @param grid
+ * @param boat
+ * @param boat_representation
+ */
 void set_boat(Grid *grid, Boat boat, char *boat_representation){
     short int line = boat.position[0], column = boat.position[1];
     for(int i = 0; i < boat.size; i++){
@@ -74,6 +111,11 @@ void set_boat(Grid *grid, Boat boat, char *boat_representation){
     }
 }
 
+/**
+ *
+ * @param grid
+ * @param fleet
+ */
 static void set_fleet(Grid *grid, Boat *fleet){
     initialize_fleet(fleet);
     short int line, column;
@@ -88,6 +130,10 @@ static void set_fleet(Grid *grid, Boat *fleet){
     }
 }
 
+/**
+ *
+ * @param difficulty
+ */
 static void set_difficulty(Difficulty *difficulty){
     int choice = 0;
     printf("Chose difficulty :\n  1 : Easy\n  2 : Medium\n  3 : Hard\n");
@@ -95,6 +141,10 @@ static void set_difficulty(Difficulty *difficulty){
     *difficulty = choice - 1;
 }
 
+/**
+ *
+ * @param gamemode
+ */
 static void set_gamemode(Mode *gamemode){
     int choice = 0;
     printf("Chose gamemode:\n  1 : Classic\n  2 : Blind\n  3 : Active\n");
@@ -102,6 +152,15 @@ static void set_gamemode(Mode *gamemode){
     *gamemode = choice - 1;
 }
 
+/**
+ *
+ * @param grid
+ * @param grid_displayed_active
+ * @param inventory
+ * @param difficulty
+ * @param gamemode
+ * @param fleet
+ */
 static void new_game(Grid *grid, Grid *grid_displayed_active, Inventory *inventory, Difficulty *difficulty, Mode *gamemode, Boat *fleet){
     set_difficulty(difficulty);
     set_gamemode(gamemode);
@@ -112,6 +171,16 @@ static void new_game(Grid *grid, Grid *grid_displayed_active, Inventory *invento
     set_fleet(grid, fleet);
 }
 
+/**
+ *
+ * @param filename
+ * @param grid
+ * @param grid_displayed_active
+ * @param inventory
+ * @param difficulty
+ * @param gamemode
+ * @param fleet
+ */
 void load(const char *filename, Grid *grid, Grid *grid_displayed_active, Inventory *inventory, Difficulty *difficulty, Mode *gamemode, Boat *fleet){
     char *line = malloc(12 * sizeof(char));
     char *savefile_path = malloc(sizeof(SAVE_DIR) + sizeof(filename)+1);
@@ -144,6 +213,17 @@ void load(const char *filename, Grid *grid, Grid *grid_displayed_active, Invento
     fclose(save);
 }
 
+/**
+ *
+ * @param grid
+ * @param grid_displayed_active
+ * @param height
+ * @param width
+ * @param inventory
+ * @param difficulty
+ * @param gamemode
+ * @param fleet
+ */
 void initialization(Grid *grid, Grid *grid_displayed_active, short int height, short int width, Inventory *inventory, Difficulty *difficulty, Mode *gamemode, Boat *fleet){
     int choice = 0;
     mkdir(SAVE_DIR);

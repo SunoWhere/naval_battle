@@ -1,5 +1,9 @@
 #include "display.h"
 
+/**
+ *
+ * @param grid
+ */
 void show_grid(Grid *grid){
     printf("   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |\n");
     for (int i = 0; i < grid->height; i++) {
@@ -24,6 +28,10 @@ void show_grid(Grid *grid){
     printf("\n");
 }*/
 
+/**
+ *
+ * @param inventory
+ */
 void show_inventory(Inventory *inventory){
     printf("Inventory :\n"
            "  Artillery missile = %d\n"
@@ -33,6 +41,11 @@ void show_inventory(Inventory *inventory){
            , inventory->artillery, inventory->bomb, inventory->tactical, inventory->simple_missile);
 }
 
+/**
+ *
+ * @param difficulty
+ * @return
+ */
 char *difficulty_str(Difficulty difficulty){
     switch (difficulty) {
         case EASY:
@@ -44,6 +57,11 @@ char *difficulty_str(Difficulty difficulty){
     }
 }
 
+/**
+ *
+ * @param gamemode
+ * @return
+ */
 char *gamemode_str(Mode gamemode){
     switch (gamemode) {
         case CLASSIC:
@@ -55,6 +73,11 @@ char *gamemode_str(Mode gamemode){
     }
 }
 
+/**
+ *
+ * @param grid
+ * @param fleet
+ */
 void show_remaining_boat(Grid *grid, Boat *fleet){
     printf("Remaining boat in fleet : %d\n", remaining_boat(grid, fleet));
     for(int i = 0; i < 5; i++){
@@ -65,11 +88,24 @@ void show_remaining_boat(Grid *grid, Boat *fleet){
     printf("\n");
 }
 
+/**
+ *
+ * @param difficulty
+ * @param gamemode
+ */
 void show_difficulty_gamemode(Difficulty difficulty, Mode gamemode){
     printf("Difficulty = %s, Gamemode = %s\n", difficulty_str(difficulty), gamemode_str(gamemode));
     printf("\n");
 }
 
+/**
+ *
+ * @param grid
+ * @param inventory
+ * @param difficulty
+ * @param gamemode
+ * @param fleet
+ */
 void show_classic(Grid *grid, Inventory *inventory, Difficulty difficulty, Mode gamemode, Boat *fleet){
     show_difficulty_gamemode(difficulty, gamemode);
     show_grid(grid);
@@ -77,12 +113,29 @@ void show_classic(Grid *grid, Inventory *inventory, Difficulty difficulty, Mode 
     show_remaining_boat(grid, fleet);
 }
 
+/**
+ *
+ * @param grid
+ * @param inventory
+ * @param difficulty
+ * @param gamemode
+ * @param fleet
+ */
 void show_blind(Grid *grid, Inventory *inventory, Difficulty difficulty, Mode gamemode, Boat *fleet){
     show_difficulty_gamemode(difficulty, gamemode);
     show_inventory(inventory);
     show_remaining_boat(grid, fleet);
 }
 
+/**
+ *
+ * @param grid
+ * @param grid_displayed_active
+ * @param inventory
+ * @param difficulty
+ * @param gamemode
+ * @param fleet
+ */
 void show_active(Grid *grid, Grid *grid_displayed_active, Inventory *inventory, Difficulty difficulty, Mode gamemode, Boat *fleet){
     show_difficulty_gamemode(difficulty, gamemode);
     show_grid(grid_displayed_active);

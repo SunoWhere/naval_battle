@@ -1,5 +1,15 @@
 #include "file.h"
 
+/**
+ *
+ * @param filename
+ * @param grid
+ * @param grid_displayed_active
+ * @param inventory
+ * @param difficulty
+ * @param gamemode
+ * @param fleet
+ */
 void save(const char *filename, Grid *grid, Grid *grid_displayed_active, Inventory *inventory, Difficulty difficulty, Mode gamemode, Boat *fleet){
     char *savefile_path = malloc(sizeof(SAVE_DIR) + sizeof(filename)+1);
     strcpy(savefile_path, SAVE_DIR);

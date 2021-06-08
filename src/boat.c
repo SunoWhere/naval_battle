@@ -1,5 +1,11 @@
 #include "boat.h"
 
+/**
+ *Récupère la grille et le bateau dont on veut connaître le nombre de point de vie restant
+ * @param grid - La grille de jeu
+ * @param boat - Le bateau à analyser
+ * @return Retourne le nombre de point restant pour le bateau
+ */
 int remaining_life(Grid *grid, Boat boat){
     short int start_line = boat.position[0], start_column = boat.position[1];
     short int life = boat.size;
@@ -13,10 +19,22 @@ int remaining_life(Grid *grid, Boat boat){
     return life;
 }
 
+/**
+ *Récupère la grille et le bateau dont on veut connaître le status
+ * @param grid - La grille de jeu
+ * @param boat - Le bateau à analyser
+ * @return Retourne l'état du bateau (en vie ou non)
+ */
 int is_alive(Grid *grid, Boat boat){
     return remaining_life(grid, boat) ? 1 : 0;
 }
 
+/**
+ *Récupère la grille et la flotte de bateaux
+ * @param grid - La grille de jeu
+ * @param fleet - La flotte contenant l'ensemble des bateaux
+ * @return Retourne le nombre de bateau restant à éliminer
+ */
 int remaining_boat(Grid *grid, Boat *fleet){
     short int boat = 0;
     for (int i = 0; i < 5; i++) {

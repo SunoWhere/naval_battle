@@ -1,5 +1,12 @@
 #include "player.h"
 
+/**
+ *
+ * @param position
+ * @param line
+ * @param column
+ * @return
+ */
 static int is_valid_position(char *position, short int *line, short int *column){
     char position_temp[3];
     strcpy(position_temp, position);
@@ -17,6 +24,11 @@ static int is_valid_position(char *position, short int *line, short int *column)
     return 1;
 }
 
+/**
+ *
+ * @param line
+ * @param column
+ */
 static void position_input(short int *line, short int *column){
     char position[4];
     printf("Please enter the cell position of your strike : (ex: A5)\n");
@@ -27,6 +39,12 @@ static void position_input(short int *line, short int *column){
     }
 }
 
+/**
+ *
+ * @param grid
+ * @param inventory
+ * @param fleet
+ */
 static void weapon_menu(Grid *grid, Inventory *inventory, Boat *fleet){
     int choice;
     short int line, column;
@@ -61,6 +79,15 @@ static void weapon_menu(Grid *grid, Inventory *inventory, Boat *fleet){
     }
 }
 
+/**
+ *
+ * @param grid
+ * @param grid_displayed_active
+ * @param inventory
+ * @param difficulty
+ * @param gamemode
+ * @param fleet
+ */
 void player_menu(Grid *grid, Grid *grid_displayed_active, Inventory *inventory, Difficulty difficulty, Mode gamemode, Boat *fleet){
     int choice;
     printf("Please select action :\n  1 : Play\n  2 : Save and quit\n");
