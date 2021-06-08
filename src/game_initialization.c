@@ -165,7 +165,7 @@ static void set_gamemode(Mode *gamemode){
  * @param grid_displayed_active - Grille de jeu à afficher dans le cas où le joueur joue en mode ACTIVE
  * @param inventory - Inventaire du joueur
  * @param difficulty - Difficulté de la partie
- * @param gamemode - Mode de jeu
+ * @param gamemode - Mode de jeu de la partie
  * @param fleet - Flotte qui va contenir l'ensemble des bateaux ennemis
  */
 static void new_game(Grid *grid, Grid *grid_displayed_active, Inventory *inventory, Difficulty *difficulty, Mode *gamemode, Boat *fleet){
@@ -179,14 +179,15 @@ static void new_game(Grid *grid, Grid *grid_displayed_active, Inventory *invento
 }
 
 /**
- *
- * @param filename
- * @param grid
- * @param grid_displayed_active
- * @param inventory
- * @param difficulty
- * @param gamemode
- * @param fleet
+ * Charge les données contenues dans le fichier de sauvegarde (save.txt) et initialise les différents éléments nécessaires
+ * au bon fonctionnement du jeu avec ces données
+ * @param filename - Nom du fichier à charger (save.txt)
+ * @param grid - Grille de jeu
+ * @param grid_displayed_active - Grille de jeu à afficher dans le cas où le joueur joue en mode ACTIVE
+ * @param inventory - Inventaire du joueur
+ * @param difficulty - Difficulté de la partie
+ * @param gamemode - Mode de jeu de la partie
+ * @param fleet - Flotte qui va contenir l'ensemble des bateaux ennemis
  */
 void load(const char *filename, Grid *grid, Grid *grid_displayed_active, Inventory *inventory, Difficulty *difficulty, Mode *gamemode, Boat *fleet){
     char *line = malloc(12 * sizeof(char));
@@ -221,15 +222,16 @@ void load(const char *filename, Grid *grid, Grid *grid_displayed_active, Invento
 }
 
 /**
- *
- * @param grid
- * @param grid_displayed_active
- * @param height
- * @param width
- * @param inventory
- * @param difficulty
- * @param gamemode
- * @param fleet
+ * Fonction d'initialisation globale d'une partie, appelle l'ensemble des fonctions précédentes nécessaires à l'initialisation
+ * de la partie
+ * @param grid - Grille de jeu
+ * @param grid_displayed_active - Grille de jeu à afficher dans le cas où le joueur joue en mode ACTIVE
+ * @param height - Hauteur de la grille
+ * @param width - Largeur de la grille
+ * @param inventory - Inventaire du joueur
+ * @param difficulty - Difficulté de la partie
+ * @param gamemode - Mode de jeu de la partie
+ * @param fleet - Flotte qui va contenir l'ensemble des bateaux ennemis
  */
 void initialization(Grid *grid, Grid *grid_displayed_active, short int height, short int width, Inventory *inventory, Difficulty *difficulty, Mode *gamemode, Boat *fleet){
     int choice = 0;
