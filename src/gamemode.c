@@ -63,7 +63,7 @@ static int is_boat_in_grid(Grid *grid, Boat boat, short int line, short int colu
  * @param column - Colonne de la grille correspondant à la position de la tête du bateau
  * @param boat_string - Chaîne de caractères qui va permettre stocker la chaîne du bateau
  */
-static void get_boat(Grid *grid, Boat boat, short int line, short int column , char *boat_string){
+static void get_boat(Grid *grid, Boat boat, short int line, short int column, char *boat_string){
     for(int i = 0; i < boat.size; i++){
         boat_string[i] = (grid->grid[line][column] == 'X' ||  grid->grid[line][column] == 'D') ? 'D' : 'B';
         grid->grid[line][column] = '_';
