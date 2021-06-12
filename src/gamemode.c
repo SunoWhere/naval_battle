@@ -92,7 +92,7 @@ static short int random_boat_index(Grid *grid, Boat *fleet){
 }
 
 /**
- * Déplace aléatoirement l'un des bateaux restants de la flotte dans la grille de jeu
+ * Déplace aléatoirement d'une à trois cases l'un des bateaux restants de la flotte dans la grille de jeu
  * @param grid - Grille de jeu où on va écrire le déplacement
  * @param fleet - Flotte contenant les bateaux ennemis
  */
