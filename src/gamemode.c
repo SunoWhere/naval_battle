@@ -43,7 +43,7 @@ static void active_copy(Grid *grid, Grid *grid_displayed){
  * @param column - Nouvelle colonne
  * @return Retourne 0, si le bateau n'est plus dans la grille, retourne 1, si le bateau est encore dans la grille
  */
-static int is_boat_in_grid(Grid *grid, Boat boat, short int line, short int column) {
+static int is_boat_in_grid(Grid *grid, Boat boat, short int line, short int column){
     for(int i = 0; i < boat.size; i++){
         if(!is_in_grid(grid, line, column)){
             return 0;
