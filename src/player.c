@@ -1,10 +1,12 @@
 #include "player.h"
 
 /**
- *
- * @param position
- * @param line
- * @param column
+ * Teste la validité d'une position entrée, vérifie si le format entré correspond au format attendu, et que la valeur
+ * soit une valeur possible
+ * @param position - La chaîne de caractères correspond à la position entrée par l'utilisateur dont on veut tester la
+ * validité
+ * @param line - La ligne de la position, ce pointeur permet de modifier directement la valeur de la ligne
+ * @param column - La colonne de la position, ce pointeur permet de modifier directement la valeur de la coordonnée
  * @return
  */
 static int is_valid_position(char *position, short int *line, short int *column){
@@ -25,9 +27,9 @@ static int is_valid_position(char *position, short int *line, short int *column)
 }
 
 /**
- *
- * @param line
- * @param column
+ * Fonction permettant la saisie de la position par l'utilisateur
+ * @param line - Pointeur permettant de modifier directement la valeur de la ligne
+ * @param column - Pointeur permettant de modifier directement la valeur de la colonne
  */
 static void position_input(short int *line, short int *column){
     char position[4];
@@ -40,10 +42,10 @@ static void position_input(short int *line, short int *column){
 }
 
 /**
- *
- * @param grid
- * @param inventory
- * @param fleet
+ * Affiche le menu des armes permettant de sélectionner l'arme à utiliser pour attaquer
+ * @param grid - La grille de jeu
+ * @param inventory - L'inventaire du joueur
+ * @param fleet - La flotte contenant les bateaux ennemis
  */
 static void weapon_menu(Grid *grid, Inventory *inventory, Boat *fleet){
     int choice;
@@ -80,13 +82,14 @@ static void weapon_menu(Grid *grid, Inventory *inventory, Boat *fleet){
 }
 
 /**
- *
- * @param grid
- * @param grid_displayed_active
- * @param inventory
- * @param difficulty
- * @param gamemode
- * @param fleet
+ * Affiche le menu du joueur, lui permettant de choisir entre le fait d'effectuer une action, donc ouvrir le menu des
+ * armes ou de arrêter la partie et la sauvegarder
+ * @param grid - Grille de jeu
+ * @param grid_displayed_active -  Grille de jeu servant uniquement à l'affichage en mode ACTIVE
+ * @param inventory - L'inventaire du joueur
+ * @param difficulty - La difficulté de la partie actuelle
+ * @param gamemode - Le mode de jeu actuel
+ * @param fleet - La flotte contenant les bateaux ennemis
  */
 void player_menu(Grid *grid, Grid *grid_displayed_active, Inventory *inventory, Difficulty difficulty, Mode gamemode, Boat *fleet){
     int choice;

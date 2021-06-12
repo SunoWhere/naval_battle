@@ -55,13 +55,13 @@ static int is_boat_in_grid(Grid *grid, Boat boat, short int line, short int colu
 }
 
 /**
- * Récupère la chaîne de charactères correspondant au bateau, en fonction de sa position et de sa taille, avec les
+ * Récupère la chaîne de caractères correspondant au bateau, en fonction de sa position et de sa taille, avec les
  * parties impactées par des missiles remplacés par des "D"
  * @param grid - Grille de jeu
  * @param boat - Bateau à récupérer
  * @param line - Ligne de la grille correspondant à la position de la tête du bateau
  * @param column - Colonne de la grille correspondant à la position de la tête du bateau
- * @param boat_string - Chaîne de charactères qui va permettre stocker la chaîne du bateau
+ * @param boat_string - Chaîne de caractères qui va permettre stocker la chaîne du bateau
  */
 static void get_boat(Grid *grid, Boat boat, short int line, short int column , char *boat_string){
     for(int i = 0; i < boat.size; i++){

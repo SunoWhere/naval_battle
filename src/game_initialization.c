@@ -2,7 +2,7 @@
 
 /**
  * Initialise les structures de type Grid dont la taille (hauteur et largeur) est définie en paramètre, la grille est
- * un tableau de chaînes de charactères, le charatère de base, remplissant les chaînes, est le charactère "_"
+ * un tableau de chaînes de caractères, le caratère de base, remplissant les chaînes, est le caractère "_"
  * @param  - Grille à initialiser (structure de type Grid)
  * @param height - Hauteur de la grille
  * @param width - Largeur de la grille
@@ -102,10 +102,10 @@ int is_taken(Boat *fleet, short int boat_index, short int line, short int column
 }
 
 /**
- * Place le bateau dans la grille sous forme d'une chaîne de charactère
+ * Place le bateau dans la grille sous forme d'une chaîne de caractère
  * @param grid - Grille de jeu
  * @param boat - Bateau à placer
- * @param boat_representation - Chaîne de charactères correspondant à la manière dont sera écrit le bateau sur la grile
+ * @param boat_representation - Chaîne de caractères correspondant à la manière dont sera écrit le bateau sur la grile
  */
 void set_boat(Grid *grid, Boat boat, char *boat_representation){
     short int line = boat.position[0], column = boat.position[1];
