@@ -74,6 +74,24 @@ static void get_boat(Grid *grid, Boat boat, short int line, short int column , c
 }
 
 /**
+ * Fonction permettant l'obtention de l'un index, de manière aléatoire, d'un des bateaux encore en vie
+ * @param grid - Grille de jeu
+ * @param fleet - Flotte contenant les bateaux ennemis
+ * @return Retourne un index valide, donc l'index d'un bateau encore en vie
+ */
+static short int random_boat_index(Grid *grid, Boat *fleet){
+    short int remaining_boat_list[5], list_index = 0;
+    for(int i = 0; i < 5; i++){
+        if(is_alive(grid, fleet[i])){
+            remaining_boat_list[list_index] = i;
+            //printf("La valeur de l'index ajouté est %d\n", i);
+            list_index++;
+        }
+    }
+    return remaining_boat_list[rand()%list_index];
+}
+
+/**
  * Déplace aléatoirement l'un des bateaux restants de la flotte dans la grille de jeu
  * @param grid - Grille de jeu où on va écrire le déplacement
  * @param fleet - Flotte contenant les bateaux ennemis
@@ -82,7 +100,7 @@ static void active_move(Grid *grid, Boat *fleet){
     short int index_boat, new_line, new_column, cell_taken, same_position;
     char boat_string[6] = "\0";
     do{
-        index_boat = rand()%5;
+        index_boat = random_boat_index(grid, fleet);
         new_line = fleet[index_boat].orientation == VERTICAL ? fleet[index_boat].position[0] + (rand()%2 ? rand()%3 + 1 : -(rand()%3 + 1)) : fleet[index_boat].position[0];
         new_column = fleet[index_boat].orientation == HORIZONTAL ? fleet[index_boat].position[1] + (rand()%2 ? rand()%3 + 1 : -(rand()%3 + 1)) : fleet[index_boat].position[1];
         cell_taken = is_taken(fleet, index_boat, new_line, new_column);
