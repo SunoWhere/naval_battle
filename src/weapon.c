@@ -1,18 +1,18 @@
 #include "weapon.h"
 
 /**
- *
- * @param inventory
- * @return
+ * Permet d'obtenir le nombre de type d'arme encore disponible
+ * @param inventory - Inventaire du joueur
+ * @return Retourne le nombre de type d'arme encore disponible
  */
 int available_weapon(Inventory inventory){
     return (inventory.artillery != 0)  + (inventory.bomb != 0) + (inventory.tactical != 0) + (inventory.simple_missile != 0);
 }
 
 /**
- *
- * @param inventory
- * @param list
+ * Permet d'obtenir la liste des armes encore disponibles dans l'inventaire
+ * @param inventory - Inventaire du joueur
+ * @param list - Pointeur permettant de récupérer la liste des armes disponibles
  */
 void available_weapon_list(Inventory *inventory, Weapon *list){
     short int index = 0;
@@ -34,9 +34,10 @@ void available_weapon_list(Inventory *inventory, Weapon *list){
 }
 
 /**
- *
- * @param grid
- * @param boat
+ * Permet de gérer le cas de l'attaque d'un missile tactique, remplace les caractères composants le bateau par des X, pour
+ * signifier sa destruction totale
+ * @param grid - Grille de jeu
+ * @param boat - Le bateau à détruire
  */
 static void tactical_attack_on_boat(Grid *grid, Boat boat){
     for(int i = 0; i < boat.size; i++){
@@ -47,11 +48,12 @@ static void tactical_attack_on_boat(Grid *grid, Boat boat){
 }
 
 /**
- *
- * @param grid
- * @param line
- * @param column
- * @return
+ * Permet de savoir si les coordonnées (ligne, colonne) correspondent à des coordonnées possibles dans la grille de jeu
+ * @param grid - Grille de jeu
+ * @param line - Ligne où l'attaque doit être effectuée
+ * @param column - Colonne où l'attaque doit être effectuée
+ * @return Retourne 0, si la valeur ne correspond pas à une coordonnée possible dans la grille, retourne 1, dans le cas
+ * contraire
  */
 int is_in_grid(Grid *grid, short int line, short int column){
     if(line < 0 || line > (grid->height - 1) || column < 0 || column > (grid->width - 1)){
@@ -62,12 +64,14 @@ int is_in_grid(Grid *grid, short int line, short int column){
 }
 
 /**
- *
- * @param grid
- * @param fleet
- * @param line
- * @param column
- * @param is_tactical
+ * Fonction permettant l'attaque sur la cellule de la grille dont les coordonnées sont passées en paramètres, remplace la
+ * cellule touchée par un "O", si l'attque ne touche aucun navire, par un "X", si l'attaque touche une cellule où se situe
+ * une des parties d'un des navires
+ * @param grid - Grille de jeu
+ * @param fleet - Flotte contenant les bateaux ennemis
+ * @param line - Ligne ciblée
+ * @param column - Colonne ciblée
+ * @param is_tactical - Permet de savoir si le missile utilisé est tactique, pour appeler la fonction adéquate
  */
 static void attack_on_cell(Grid *grid, Boat *fleet, short int line, short int column, short int is_tactical){
     if(is_in_grid(grid, line, column) && (grid->grid[line][column] != 'X' && grid->grid[line][column] != 'D')){
@@ -93,11 +97,12 @@ static void attack_on_cell(Grid *grid, Boat *fleet, short int line, short int co
 }
 
 /**
- *
- * @param grid
- * @param fleet
- * @param line
- * @param column
+ * Permet un tir de missile d'artillerie, ce missile détruit tout ce qui se situe sur la ligne et la colonne ciblées par
+ * le joueur, le motif correspond à une croix
+ * @param grid - Grille de jeu
+ * @param fleet - Flotte contenant les bateaux ennemis
+ * @param line - Ligne ciblée par le joueur
+ * @param column - Colonne ciblée par le joueur
  */
 void fire_artillery(Grid *grid, Boat *fleet, short int line, short int column){
     for(int i = 0; i < 10; i++){
@@ -109,11 +114,11 @@ void fire_artillery(Grid *grid, Boat *fleet, short int line, short int column){
 }
 
 /**
- *
- * @param grid
- * @param fleet
- * @param line
- * @param column
+ * Permet une attaque utilisant une bombe, détruit tout ce qui se trouve dans un cercle de rayon de 5 cellules
+ * @param grid - Grille de jeu
+ * @param fleet - Flotte contenant les bateaux ennemis
+ * @param line - Ligne ciblée par le joueur
+ * @param column - Colonne ciblée par le joueur
  */
 void fire_bomb(Grid *grid, Boat *fleet, short int line, short int column){
     for(int i = -2; i < 2; i++){
@@ -128,22 +133,22 @@ void fire_bomb(Grid *grid, Boat *fleet, short int line, short int column){
 }
 
 /**
- *
- * @param grid
- * @param fleet
- * @param line
- * @param column
+ * Permet un tir de missile tactique, ce missile n'attaque qu'une cas mais s'il touche un bateau, le détruit directement
+ * @param grid - Grille de jeu
+ * @param fleet - Flotte contenant les bateaux ennemis
+ * @param line - Ligne ciblée par le joueur
+ * @param column - Colonne ciblée par le joueur
  */
 void fire_tactical(Grid *grid, Boat *fleet, short int line, short int column){
     attack_on_cell(grid, fleet, line, column, 1);
 }
 
 /**
- * 
- * @param grid
- * @param fleet
- * @param line
- * @param column
+ * Permet un tir de missile simple, attaque uniquement une seule case
+ * @param grid - Grille de jeu
+ * @param fleet - Flotte contenant les bateaux ennemis
+ * @param line - Ligne ciblée par le joueur
+ * @param column - Colonne ciblée par le joueur
  */
 void fire_simple(Grid *grid, Boat *fleet, short int line, short int column){
     attack_on_cell(grid, fleet, line, column,0);
