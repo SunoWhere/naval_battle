@@ -74,7 +74,7 @@ char *gamemode_str(Mode gamemode){
 }
 
 /**
- * Affiche la liste des bateaux restant avec leur point de vie respectif
+ * Affiche la liste des bateaux restant avec leurs points de vie respectif
  * @param grid - Grille de jeu
  * @param fleet - Flotte de bateaux dont on veut afficher le status
  */
