@@ -12,6 +12,26 @@ static void free_grid(Grid *grid){
 }
 
 /**
+ * Met fin à la partie : affiche le message relatif à la victoire ou la défaite du joueur, puis quitte le programme
+ * @param grid - Grille de jeu
+ * @param grid_displayed_active - Grille à afficher uniquement en mode ACTIVE
+ * @param fleet - Flotte de bateau ennemis
+ * @param gamemode - Mode de jeu de la partie
+ */
+static void end_game(Grid *grid, Grid *grid_displayed_active, Boat *fleet, Mode gamemode){
+    if(remaining_boat(grid, fleet) > 0){
+        printf("You lose !");
+    }else{
+        printf("You win !");
+    }
+    free_grid(grid);
+    if(gamemode == ACTIVE){
+        free_grid(grid_displayed_active);
+    }
+    exit(0);
+}
+
+/**
  * Copie de la grille de jeu dans la grille de jeu à afficher en mode ACTIVE en remplaçant les éléments d'impacts de la
  * grille de jeu de base par un "_" si la case correspond à un "O"
  * @param grid - Grille de jeu
@@ -79,7 +99,7 @@ static void get_boat(Grid *grid, Boat boat, short int line, short int column, ch
  * @param fleet - Flotte contenant les bateaux ennemis
  * @return Retourne un index valide, donc l'index d'un bateau encore en vie
  */
-static short int random_boat_index(Grid *grid, Boat *fleet){
+static short int random_boat_index(Grid *grid, Grid *grid_displayed_active, Boat *fleet){
     short int remaining_boat_list[5], list_index = 0;
     for(int i = 0; i < 5; i++){
         if(is_alive(grid, fleet[i])){
@@ -87,6 +107,9 @@ static short int random_boat_index(Grid *grid, Boat *fleet){
             //printf("La valeur de l'index ajouté est %d\n", i);
             list_index++;
         }
+    }
+    if(list_index == 0){
+        end_game(grid, grid_displayed_active, fleet, ACTIVE);
     }
     return remaining_boat_list[rand()%list_index];
 }
@@ -96,11 +119,11 @@ static short int random_boat_index(Grid *grid, Boat *fleet){
  * @param grid - Grille de jeu où on va écrire le déplacement
  * @param fleet - Flotte contenant les bateaux ennemis
  */
-static void active_move(Grid *grid, Boat *fleet){
+static void active_move(Grid *grid, Grid *grid_displayed_active, Boat *fleet){
     short int index_boat, new_line, new_column, cell_taken, same_position;
     char boat_string[6] = "\0";
     do{
-        index_boat = random_boat_index(grid, fleet);
+        index_boat = random_boat_index(grid, grid_displayed_active, fleet);
         new_line = fleet[index_boat].orientation == VERTICAL ? fleet[index_boat].position[0] + (rand()%2 ? rand()%3 + 1 : -(rand()%3 + 1)) : fleet[index_boat].position[0];
         new_column = fleet[index_boat].orientation == HORIZONTAL ? fleet[index_boat].position[1] + (rand()%2 ? rand()%3 + 1 : -(rand()%3 + 1)) : fleet[index_boat].position[1];
         cell_taken = is_taken(fleet, index_boat, new_line, new_column);
@@ -139,17 +162,9 @@ void run_game(Grid *grid, Grid *grid_displayed_active, Inventory *inventory, Dif
                 show_active(grid, grid_displayed_active, inventory, difficulty, gamemode, fleet);
                 player_menu(grid, grid_displayed_active, inventory, difficulty, gamemode, fleet);
                 active_copy(grid, grid_displayed_active);
-                active_move(grid, fleet);
+                active_move(grid, grid_displayed_active, fleet);
                 break;
         }
     }
-    if(remaining_boat(grid, fleet) > 0){
-        printf("You lose !");
-    }else{
-        printf("You win !");
-    }
-    free_grid(grid);
-    if(gamemode == ACTIVE){
-        free_grid(grid_displayed_active);
-    }
+    end_game(grid, grid_displayed_active, fleet, gamemode);
 }
