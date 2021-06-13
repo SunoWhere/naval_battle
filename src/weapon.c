@@ -74,7 +74,7 @@ int is_in_grid(Grid *grid, short int line, short int column){
  * @param is_tactical - Permet de savoir si le missile utilisé est tactique, pour appeler la fonction adéquate
  */
 static void attack_on_cell(Grid *grid, Boat *fleet, short int line, short int column, short int is_tactical){
-    if(is_in_grid(grid, line, column) && (grid->grid[line][column] != 'X' && grid->grid[line][column] != 'D')){
+    if(is_in_grid(grid, line, column)){
         short int boat_touched = 0;
         short int boat_line, boat_column;
         for(int i = 0; i < 5; i++){
@@ -85,8 +85,13 @@ static void attack_on_cell(Grid *grid, Boat *fleet, short int line, short int co
                     if(is_tactical){
                         tactical_attack_on_boat(grid, fleet[i]);
                     }
-                    printf("%c%d has been touched.\n", line + 65, column + 1);
-                    boat_touched = 1;
+                    if((grid->grid[line][column] != 'X' && grid->grid[line][column] != 'D') && !is_tactical){
+                        printf("%c%d has been touched.\n", line + 65, column + 1);
+                        boat_touched = 1;
+                    }else{
+                        printf("%c%d has been already touched.\n", line + 65, column + 1);
+                        boat_touched = 1;
+                    }
                 }
                 boat_line += (fleet[i].orientation == VERTICAL) ? 1 : 0;
                 boat_column += (fleet[i].orientation == HORIZONTAL) ? 1 : 0;
