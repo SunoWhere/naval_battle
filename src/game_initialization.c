@@ -12,8 +12,8 @@ void initialize_grid(Grid *grid, short int height, short int width){
     grid->width = width;
     grid->grid = malloc(height * sizeof(char *));
     for (int i = 0; i < height; i++) {
-        *(grid->grid+i) = malloc(width * sizeof(char));
-        memset((grid->grid[i]), 95, width * sizeof(char));
+        grid->grid[i] = malloc(width * sizeof(char));
+        memset((grid->grid[i]), '_', width * sizeof(char)); // N'utilise jamais la valeur ASCII à la place du caractère, c'est illisible
     }
 }
 
@@ -87,14 +87,12 @@ int is_taken(Boat *fleet, short int boat_index, short int line, short int column
                 fleet_boat_line = fleet[i].position[0];
                 fleet_boat_column = fleet[i].position[1];
                 for(int k = 0; k < fleet[i].size; k++) {
-                    if(line == fleet_boat_line && column == fleet_boat_column){
+                    if (line == fleet_boat_line && column == fleet_boat_column) {
                         return 1;
                     }
-                    fleet_boat_line += (fleet[i].orientation == VERTICAL) ? 1 : 0;
-                    fleet_boat_column += (fleet[i].orientation == HORIZONTAL) ? 1 : 0;
+                    fleet[boat_index].orientation == VERTICAL ? ++line : ++column;
                 }
-                line += (fleet[boat_index].orientation == VERTICAL) ? 1 : 0;
-                column += (fleet[boat_index].orientation == HORIZONTAL) ? 1 : 0;
+                fleet[boat_index].orientation == VERTICAL ? ++line : ++column; // Moins explicite, mais ça tient en une seule ligne
             }
         }
     }
@@ -111,8 +109,7 @@ void set_boat(Grid *grid, Boat boat, char *boat_representation){
     short int line = boat.position[0], column = boat.position[1];
     for(int i = 0; i < boat.size; i++){
         grid->grid[line][column] = boat_representation[i];
-        line += (boat.orientation == VERTICAL) ? 1 : 0;
-        column += (boat.orientation == HORIZONTAL) ? 1 : 0;
+        boat.orientation == VERTICAL ? ++line : ++column; // Moins explicite, mais ça tient en une seule ligne
     }
 }
 
@@ -125,7 +122,7 @@ void set_boat(Grid *grid, Boat boat, char *boat_representation){
  */
 static void set_fleet(Grid *grid, Boat *fleet){
     initialize_fleet(fleet);
-    short int line, column;
+    unsigned short line, column;
     for(int i = 4; i >=0 ; i--){
         do{
             line = rand()%(grid->height - (fleet[i].size * (fleet[i].orientation == VERTICAL)));
@@ -190,8 +187,8 @@ static void new_game(Grid *grid, Grid *grid_displayed_active, Inventory *invento
  * @param fleet - Flotte qui va contenir l'ensemble des bateaux ennemis
  */
 void load(const char *filename, Grid *grid, Grid *grid_displayed_active, Inventory *inventory, Difficulty *difficulty, Mode *gamemode, Boat *fleet){
-    char *line = malloc(12 * sizeof(char));
-    char *savefile_path = malloc(sizeof(SAVE_DIR) + sizeof(filename)+1);
+    char line[12];
+    char *savefile_path = malloc((sizeof(SAVE_DIR) + sizeof(filename) + 1) * sizeof(char));
     strcpy(savefile_path, SAVE_DIR);
     strcat(savefile_path, filename);
     FILE *save = fopen(savefile_path, "r");
